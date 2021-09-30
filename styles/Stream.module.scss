@@ -1,0 +1,74 @@
+.stream {
+  width: auto;
+  height: 50vh;
+}
+
+.title {
+  color: #eee;
+  text-align: center;
+  margin: 15px 0;
+}
+
+.server {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button {
+    padding: 5px 10px;
+    background-color: rgb(105, 105, 105);
+    color: #eee;
+    border-radius: 10px;
+    margin: 0 1px;
+  }
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+  button {
+    padding: 15px 20px;
+    background-color: rgb(105, 105, 105);
+    border-radius: 10px;
+    margin: 0 1px;
+    color: #eee;
+  }
+}
+.navigationRight {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 20px 0;
+  button {
+    padding: 15px 20px;
+    background-color: rgb(105, 105, 105);
+    border-radius: 10px;
+    margin: 0 1px;
+    color: #eee;
+  }
+}
+.button {
+  padding: 0 20px;
+  max-width: 400px;
+}
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 40vh;
+}
+
+.bot {
+  background-color: #0088cc;
+  padding: 15px 25px;
+  color: #eee;
+  border-radius: 25px;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
