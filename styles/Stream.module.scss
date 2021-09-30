@@ -12,14 +12,14 @@
 .server {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 
   button {
     padding: 5px 10px;
     background-color: rgb(105, 105, 105);
     color: #eee;
     border-radius: 10px;
-    margin: 0 1px;
+    margin: 0 5px;
   }
 }
 

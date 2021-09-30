@@ -9,6 +9,17 @@ interface Props {
   prev: number | null
   title: string
 }
+
+const antiWibu = (url: string): string => {
+  if (url.indexOf("wibuu.info") === -1) return url
+
+  const blog = url.split("embed.php?url=")[1].split('"')[0]
+  const tobeReplaced = `https://wibuu.info/stream/embed.php?url=${blog}`
+  const replacedUrl = `https://same.yui.pw/api/embed/${encodeURIComponent(
+    blog
+  )}`
+  return url.replace(tobeReplaced, replacedUrl)
+}
 export default function Stream(props: Props) {
   const [server, selecServer] = useState(0)
   const { player, next, prev, title } = props
@@ -17,7 +28,7 @@ export default function Stream(props: Props) {
       <div>
         <div
           className={style.stream}
-          dangerouslySetInnerHTML={{ __html: player[server].url }}
+          dangerouslySetInnerHTML={{ __html: antiWibu(player[server].url) }}
         ></div>
       </div>
       <div className={style.title}>{title}</div>
@@ -33,7 +44,7 @@ export default function Stream(props: Props) {
                 )
               })}
           </div>
-          <div className={(prev) ? style.navigation : style.navigationRight}>
+          <div className={prev ? style.navigation : style.navigationRight}>
             {prev && (
               <Link href="/view/[episodeId]" as={`/view/${prev}`} passHref>
                 <button>Episode Sebelumnya</button>
