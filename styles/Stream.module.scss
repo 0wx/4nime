@@ -1,6 +1,6 @@
 .stream {
   width: auto;
-  height: 50vh;
+  height: 45vh;
 }
 
 .title {
@@ -20,6 +20,8 @@
     color: #eee;
     border-radius: 10px;
     margin: 0 5px;
+    border: none;
+    cursor: pointer;
   }
 }
 
@@ -34,6 +36,8 @@
     border-radius: 10px;
     margin: 0 1px;
     color: #eee;
+    border: none;
+    cursor: pointer;
   }
 }
 .navigationRight {
@@ -47,6 +51,8 @@
     border-radius: 10px;
     margin: 0 1px;
     color: #eee;
+    border: none;
+    cursor: pointer;
   }
 }
 .button {
@@ -67,8 +73,21 @@
   color: #eee;
   border-radius: 25px;
   font-weight: bold;
+  border: none;
+  cursor: pointer;
 }
 
 .hidden {
   display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .stream {
+    height: 80vh;
+  }
+  .nav {
+    height: auto;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+  }
 }
