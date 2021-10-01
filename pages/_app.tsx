@@ -5,11 +5,14 @@ import NProgress from "nprogress"
 import { useEffect } from "react"
 import { useRouter } from "next/router"
 import Head from "next/head"
+import * as gtag from "../components/gtag";
+
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
   useEffect(() => {
-    const handleRouteChange = (url: string) => {
+    const handleRouteChange = (url: URL) => {
+      gtag.pageview(url)
       NProgress.done()
     }
     router.events.on("routeChangeStart", () => {
