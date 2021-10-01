@@ -48,7 +48,7 @@ export default function Stream(props: Props) {
           </div>
         </div>
         <div className={style.footer}>
-          <a href="tg://samehadakuu_bot">
+          <a href="tg://resolve?domain=samehadakuu_bot">
             <button className={style.bot}>Kembali Ke @samehadakuu_bot</button>
           </a>
         </div>
