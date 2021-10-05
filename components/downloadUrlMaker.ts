@@ -36,6 +36,5 @@ export const downloadUrlMaker = (download: Download[]) => {
     caps[indexQuality][indexType].push(dl)
   }
 
-  
   return caps
 }

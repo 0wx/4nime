@@ -1,4 +1,4 @@
-import style from "../styles/404.module.scss"
+import style from '../styles/404.module.scss'
 export default function Custom404() {
   return (
     <div className={style.patNolPat}>

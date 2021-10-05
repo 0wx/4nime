@@ -1,10 +1,10 @@
-import dynamic from "next/dynamic"
-import { useEffect, useState } from "react"
-import { useRouter } from "next/router"
-import { Loading } from "../../components/Loading"
-import Custom404 from "../404"
+import dynamic from 'next/dynamic'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { Loading } from '../../components/Loading'
+import Custom404 from '../404'
 
-const Stream = dynamic(() => import("../../components/Stream"))
+const Stream = dynamic(() => import('../../components/Stream'))
 
 export interface Player {
   title: string
@@ -37,15 +37,15 @@ export interface InitialProps {
 }
 
 const getId = (v: string | undefined) =>
-  v ? +v.replace(/.+id=([0-9]+)/g, "$1") : null
+  v ? +v.replace(/.+id=([0-9]+)/g, '$1') : null
 const getData = async (episodeId: number): Promise<SanitizedData | null> => {
   try {
-    if (!episodeId) throw new Error("Not a valid episodeId")
+    if (!episodeId) throw new Error('Not a valid episodeId')
 
     const url = `https://same.yui.pw/x/apk/?page=episode&id=00${episodeId}`
     const response = await fetch(url)
     const data: RawData | null = await response.json()
-    if (!data) throw new Error("Data is empty")
+    if (!data) throw new Error('Data is empty')
 
     const { title, thumb, next, prev, episode, player } = data
 
@@ -65,7 +65,7 @@ const getData = async (episodeId: number): Promise<SanitizedData | null> => {
 }
 const antiWibu = async (data: SanitizedData): Promise<SanitizedData> => {
   const isWibuThere = data.player.some(
-    (player) => player.url.indexOf("wibuu.info") > -1
+    (player) => player.url.indexOf('wibuu.info') > -1
   )
 
   if (!isWibuThere) return data
@@ -74,11 +74,11 @@ const antiWibu = async (data: SanitizedData): Promise<SanitizedData> => {
 
   await Promise.all(
     data.player.map(async (player) => {
-      if (player.url.indexOf("wibuu.info") === -1) {
+      if (player.url.indexOf('wibuu.info') === -1) {
         newPlayer.push(player)
         return
       }
-      const blog = player.url.split("embed.php?url=")[1].split('"')[0]
+      const blog = player.url.split('embed.php?url=')[1].split('"')[0]
       const tobeReplaced = `https://wibuu.info/stream/embed.php?url=${blog}`
       const replacedUrl = `https://same.yui.pw/api/embed/${encodeURIComponent(
         blog
@@ -99,7 +99,7 @@ const View = () => {
   const { episodeId } = router.query
   const [data, setData] = useState<SanitizedData | null | 0>(0)
   useEffect(() => {
-    if (typeof episodeId === "string") {
+    if (typeof episodeId === 'string') {
       getData(+episodeId).then((result) => {
         if (result) {
           antiWibu(result)

@@ -1,7 +1,7 @@
-import { useState } from "react"
-import { Player } from "../pages/view/[episodeId]"
-import style from "../styles/Stream.module.scss"
-import Link from "next/link"
+import { useState } from 'react'
+import { Player } from '../pages/view/[episodeId]'
+import style from '../styles/Stream.module.scss'
+import Link from 'next/link'
 
 interface Props {
   player: Player[]

@@ -1,12 +1,11 @@
-import "../styles/globals.scss"
-import type { AppProps } from "next/app"
+import '../styles/globals.scss'
+import type { AppProps } from 'next/app'
 
-import NProgress from "nprogress"
-import { useEffect } from "react"
-import { useRouter } from "next/router"
-import Head from "next/head"
-import * as gtag from "../components/gtag";
-
+import NProgress from 'nprogress'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import Head from 'next/head'
+import * as gtag from '../components/gtag'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -15,12 +14,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       gtag.pageview(url)
       NProgress.done()
     }
-    router.events.on("routeChangeStart", () => {
+    router.events.on('routeChangeStart', () => {
       NProgress.start()
     })
-    router.events.on("routeChangeComplete", handleRouteChange)
+    router.events.on('routeChangeComplete', handleRouteChange)
     return () => {
-      router.events.off("routeChangeComplete", handleRouteChange)
+      router.events.off('routeChangeComplete', handleRouteChange)
     }
   }, [router.events])
 

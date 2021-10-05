@@ -1,8 +1,8 @@
-import style from "../../styles/Batch.module.scss"
-import { useEffect, useState } from "react"
-import { useRouter } from "next/router"
-import { Download, downloadUrlMaker } from "../../components/downloadUrlMaker"
-import { Loading } from "../../components/Loading"
+import style from '../../styles/Batch.module.scss'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { Download, downloadUrlMaker } from '../../components/downloadUrlMaker'
+import { Loading } from '../../components/Loading'
 import Custom404 from '../404'
 interface Batch {
   title: string
@@ -25,7 +25,7 @@ const Batch = () => {
         })
     }
   }, [batchId])
-  if (typeof data === "number") {
+  if (typeof data === 'number') {
     return <Loading />
   }
   if (data === null) {
@@ -36,7 +36,7 @@ const Batch = () => {
     <div className={style.container}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={data.thumb} alt={data.title} />
-      <h2 style={{ color: "#eee" }}>{data.title}</h2>
+      <h2 style={{ color: '#eee' }}>{data.title}</h2>
       <div className={style.url}>
         {downloadUrlMaker(data.download).map((listByType, index) => {
           return (
@@ -52,7 +52,7 @@ const Batch = () => {
                     </span>
                     {listByQuality.map((v, index) => {
                       return (
-                        <span key={"url" + index} className={style.link}>
+                        <span key={'url' + index} className={style.link}>
                           <a href={v.url}>{v.host}</a>
                         </span>
                       )
