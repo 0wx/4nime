@@ -22,8 +22,8 @@ const Batch = () => {
     else setData(null)
   }, [batchId])
 
-  if (typeof data === "number") return <div>Loading...</div>
-  if (!data) return <div>404</div>
+  if (data === 0) return <div>Loading...</div>
+  if (data === null) return <div>404</div>
 
   return (
     <div className={style.container}>
