@@ -1,0 +1,44 @@
+.patNolPat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  color: #eee;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
+    font-size: 120px;
+    margin: 0;
+  }
+  h2 {
+    font-size: 20px;
+    margin: 0
+  }
+}
+
+.bot {
+  background-color: #0088cc;
+  padding: 15px 25px;
+  color: #eee;
+  border-radius: 25px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  margin-top: 40px;
+}
+
+@media only screen and (min-width: 768px) {
+  .patNolPat {
+    flex-direction: row;
+
+  }
+
+  .title {
+    margin-left: 60px;
+  }
+}

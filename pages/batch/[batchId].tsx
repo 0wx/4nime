@@ -2,7 +2,8 @@ import style from "../../styles/Batch.module.scss"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import { Download, downloadUrlMaker } from "../../components/downloadUrlMaker"
-
+import { Loading } from "../../components/Loading"
+import Custom404 from '../404'
 interface Batch {
   title: string
   thumb: string
@@ -14,16 +15,22 @@ const Batch = () => {
   const batchId = Number(router.query?.batchId)
 
   useEffect(() => {
-    if (batchId)
+    if (batchId) {
       fetch(`https://same.yui.pw/x/batch/${batchId}`)
         .then((res) => res.json())
         .then(setData)
-        .catch((_e) => setData(null))
-    else setData(null)
+        .catch((_e) => {
+          console.log(_e)
+          setData(null)
+        })
+    }
   }, [batchId])
-
-  if (data === 0) return <div>Loading...</div>
-  if (data === null) return <div>404</div>
+  if (typeof data === "number") {
+    return <Loading />
+  }
+  if (data === null) {
+    return <Custom404 />
+  }
 
   return (
     <div className={style.container}>

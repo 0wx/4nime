@@ -1,6 +1,8 @@
 import dynamic from "next/dynamic"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
+import { Loading } from "../../components/Loading"
+import Custom404 from "../404"
 
 const Stream = dynamic(() => import("../../components/Stream"))
 
@@ -113,11 +115,11 @@ const View = () => {
   }
 
   if (data === 0) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   if (!data) {
-    return <div>404</div>
+    return <Custom404 />
   }
 }
 
