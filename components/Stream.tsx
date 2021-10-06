@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { Player } from '../pages/view/[episodeId]'
 import style from '../styles/Stream.module.scss'
 import Link from 'next/link'
-
+import Head from 'next/head'
+import { Bot } from './BotButton'
 interface Props {
   player: Player[]
   next: number | null
@@ -15,6 +16,9 @@ export default function Stream(props: Props) {
   const { player, next, prev, title } = props
   return (
     <div>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <div>
         <div
           className={style.stream}
@@ -47,11 +51,7 @@ export default function Stream(props: Props) {
             )}
           </div>
         </div>
-        <div className={style.footer}>
-          <a href="tg://resolve?domain=samehadakuu_bot">
-            <button className={style.bot}>Kembali Ke @samehadakuu_bot</button>
-          </a>
-        </div>
+        <Bot />
       </div>
     </div>
   )

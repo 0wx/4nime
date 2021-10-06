@@ -4,6 +4,8 @@ import { useRouter } from 'next/router'
 import { Download, downloadUrlMaker } from '../../components/downloadUrlMaker'
 import { Loading } from '../../components/Loading'
 import Custom404 from '../404'
+import { Bot } from '../../components/BotButton'
+import Head from 'next/head'
 interface Batch {
   title: string
   thumb: string
@@ -34,6 +36,9 @@ const Batch = () => {
 
   return (
     <div className={style.container}>
+      <Head>
+        <title>{data.title}</title>
+      </Head>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={data.thumb} alt={data.title} />
       <h2 style={{ color: '#eee' }}>{data.title}</h2>
@@ -64,6 +69,7 @@ const Batch = () => {
           )
         })}
       </div>
+      <Bot />
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import { TailSpin } from 'react-loading-icons'
-
+import Head from 'next/head'
 export const Loading = () => (
   <div
     style={{
@@ -9,6 +9,9 @@ export const Loading = () => (
       height: '90vh',
     }}
   >
+    <Head>
+      <title>Loading...</title>
+    </Head>
     <TailSpin />
   </div>
 )
