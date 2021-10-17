@@ -12,10 +12,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const handleRouteChange = (url: URL) => {
       gtag.pageview(url)
-      NProgress.done()
+      // NProgress.done()
     }
     router.events.on('routeChangeStart', () => {
-      NProgress.start()
+      // NProgress.start()
     })
     router.events.on('routeChangeComplete', handleRouteChange)
     return () => {

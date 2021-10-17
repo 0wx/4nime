@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { Loading } from '../../components/Loading'
 import Custom404 from '../404'
 
@@ -111,7 +111,15 @@ const View = () => {
   }, [episodeId])
   if (data) {
     const { title, thumb, next, prev, episode, player } = data
-    return <Stream player={player} title={title} next={next} prev={prev} />
+    return (
+      <Stream
+        player={player}
+        title={title}
+        next={next}
+        prev={prev}
+        setData={setData}
+      />
+    )
   }
 
   if (data === 0) {

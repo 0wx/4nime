@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Player } from '../pages/view/[episodeId]'
+import { Dispatch, SetStateAction, useState } from 'react'
+import { Player, SanitizedData } from '../pages/view/[episodeId]'
 import style from '../styles/Stream.module.scss'
 import Link from 'next/link'
 import Head from 'next/head'
@@ -9,11 +9,13 @@ interface Props {
   next: number | null
   prev: number | null
   title: string
+  setData: Dispatch<SetStateAction<0 | SanitizedData | null>>
+
 }
 
 export default function Stream(props: Props) {
   const [server, selecServer] = useState(0)
-  const { player, next, prev, title } = props
+  const { player, next, prev, title, setData } = props
   return (
     <div>
       <Head>
@@ -41,12 +43,12 @@ export default function Stream(props: Props) {
           <div className={prev ? style.navigation : style.navigationRight}>
             {prev && (
               <Link href="/view/[episodeId]" as={`/view/${prev}`} passHref>
-                <button>Episode Sebelumnya</button>
+                <button onClick={() => setData(0)}>Episode Sebelumnya</button>
               </Link>
             )}
             {next && (
               <Link href="/view/[episodeId]" as={`/view/${next}`} passHref>
-                <button>Episode Selanjutnya</button>
+                <button onClick={() => setData(0)}>Episode Selanjutnya</button>
               </Link>
             )}
           </div>
