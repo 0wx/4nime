@@ -11,6 +11,21 @@ interface Batch {
   thumb: string
   download: Download[]
 }
+
+function xmur3(str: string) {
+  for (var i = 0, h = 1779033703 ^ str.length; i < str.length; i++)
+    (h = Math.imul(h ^ str.charCodeAt(i), 3432918353)),
+      (h = (h << 13) | (h >>> 19))
+  return function () {
+    h = Math.imul(h ^ (h >>> 16), 2246822507)
+    h = Math.imul(h ^ (h >>> 13), 3266489909)
+    return (h ^= h >>> 16) >>> 0
+  }
+}
+function getRandomColor(seed: string) {
+  const color = 'hsl(' + (xmur3(seed)() % 360) + ', 100%, 75%)'
+  return color
+}
 const Batch = () => {
   const [data, setData] = useState<Batch | 0 | null>(0)
   const router = useRouter()
@@ -58,7 +73,19 @@ const Batch = () => {
                     {listByQuality.map((v, index) => {
                       return (
                         <span key={'url' + index} className={style.link}>
-                          <a href={v.url}>{v.host}</a>
+                          <a
+                            style={{ color: getRandomColor(v.host) }}
+                            href={v.url}
+                            tabIndex={1}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(e) => {
+                              const clicked = document.createAttribute('style')
+                              e.currentTarget.attributes.setNamedItem(clicked)
+                            }}
+                          >
+                            {v.host}
+                          </a>
                         </span>
                       )
                     })}

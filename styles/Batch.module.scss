@@ -23,6 +23,13 @@
 
 .link {
   margin: 0 5px;
+  a:active {
+    color: rgb(88, 88, 88);
+  }
+  a[tabindex]:focus {
+    color: rgb(88, 88, 88);
+    outline: none;
+  }
 }
 
 .type {
