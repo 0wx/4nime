@@ -42,7 +42,7 @@ const getData = async (episodeId: number): Promise<SanitizedData | null> => {
   try {
     if (!episodeId) throw new Error('Not a valid episodeId')
 
-    const url = `https://same.yui.pw/api/v2/${episodeId}`
+    const url = `https://same.yui.pw/api/v2/episode/${episodeId}`
     const response = await fetch(url)
     const data: RawData | null = await response.json()
     if (!data) throw new Error('Data is empty')
