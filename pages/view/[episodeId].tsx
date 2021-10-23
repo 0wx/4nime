@@ -129,6 +129,7 @@ const View = () => {
     const { title, thumb, next, prev, episode, player } = data
     return (
       <Stream
+        current={episode}
         player={player}
         title={title}
         next={next}
