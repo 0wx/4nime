@@ -36,10 +36,33 @@
   margin: 20px 0;
 }
 
+.typeTitle {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  font-size: large;
+  padding-left: 20px;
+}
+
 .qualityTitle {
   margin-right: 5px;
+  margin-left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .quality {
   margin-top: 5px;
+  margin-left: 0;
+  width: 100%;
+  // border: 1px solid red;
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+.download {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
