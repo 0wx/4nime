@@ -5,17 +5,43 @@ import Link from 'next/link'
 import Head from 'next/head'
 import { Bot } from './BotButton'
 interface Props {
+  animeId?: string | string[]
   player: Player[]
   next: number | null
   prev: number | null
   title: string
   setData: Dispatch<SetStateAction<0 | SanitizedData | null>>
-
 }
 
 export default function Stream(props: Props) {
   const [server, selecServer] = useState(0)
-  const { player, next, prev, title, setData } = props
+  const { player, next, prev, title, setData, animeId } = props
+  const isAnimeIdExist = typeof animeId === 'object'
+  const Next =
+    isAnimeIdExist && next ? (() =>
+      <Link
+        href="/view/[[...animeId]]"
+        as={`/view/${animeId[0]}/${next}`}
+        passHref
+      >
+        <button onClick={() => setData(0)}>Episode Selanjutnya</button>
+      </Link>
+    ) : next ? (() =>
+      <Link href="/view/[episodeId]" as={`/view/${next}`} passHref>
+        <button onClick={() => setData(0)}>Episode Selanjutnya</button>
+      </Link>
+    ) : null
+
+  const Prev =
+    isAnimeIdExist && prev ? (() =>
+      <Link href="/view/[[...animeId]]" as={`/view/${animeId[0]}/${prev}`} passHref>
+        <button onClick={() => setData(0)}>Episode Sebelumnya</button>
+      </Link>
+    ) : prev ? (() =>
+      <Link href="/view/[episodeId]" as={`/view/${prev}`} passHref>
+        <button onClick={() => setData(0)}>Episode Sebelumnya</button>
+      </Link>
+    ) : null
   return (
     <div>
       <Head>
@@ -41,16 +67,8 @@ export default function Stream(props: Props) {
               })}
           </div>
           <div className={prev ? style.navigation : style.navigationRight}>
-            {prev && (
-              <Link href="/view/[episodeId]" as={`/view/${prev}`} passHref>
-                <button onClick={() => setData(0)}>Episode Sebelumnya</button>
-              </Link>
-            )}
-            {next && (
-              <Link href="/view/[episodeId]" as={`/view/${next}`} passHref>
-                <button onClick={() => setData(0)}>Episode Selanjutnya</button>
-              </Link>
-            )}
+            {Prev && <Prev />}
+            {Next && <Next />}
           </div>
         </div>
         <Bot />

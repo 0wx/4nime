@@ -26,6 +26,43 @@ function getRandomColor(seed: string) {
   const color = 'hsl(' + (xmur3(seed)() % 360) + ', 100%, 75%)'
   return color
 }
+
+export const dl = (data: Batch) =>
+  downloadUrlMaker(data.download).map((listByType, index) => {
+    return (
+      <div key={`type${index}`} className={style.type}>
+        <span className={style.typeTitle}>{listByType[0][0].videoType}</span>
+        {listByType.map((listByQuality, index) => {
+          return (
+            <div key={`quality${index}`} className={style.quality}>
+              <span className={style.qualityTitle}>
+                [ {listByQuality[0].quality.trim()} ]
+              </span>
+              {listByQuality.map((v, index) => {
+                return (
+                  <span key={'url' + index} className={style.link}>
+                    <a
+                      style={{ color: getRandomColor(v.host) }}
+                      href={v.url}
+                      tabIndex={1}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(e) => {
+                        const clicked = document.createAttribute('style')
+                        e.currentTarget.attributes.setNamedItem(clicked)
+                      }}
+                    >
+                      {v.host}
+                    </a>
+                  </span>
+                )
+              })}
+            </div>
+          )
+        })}
+      </div>
+    )
+  })
 const Batch = () => {
   const [data, setData] = useState<Batch | 0 | null>(0)
   const router = useRouter()
@@ -58,43 +95,7 @@ const Batch = () => {
       <img src={data.thumb} alt={data.title} />
       <h2 style={{ color: '#eee' }}>{data.title}</h2>
       <div className={style.url}>
-        {downloadUrlMaker(data.download).map((listByType, index) => {
-          return (
-            <div key={`type${index}`} className={style.type}>
-              <span className={style.typeTitle}>
-                {listByType[0][0].videoType}
-              </span>
-              {listByType.map((listByQuality, index) => {
-                return (
-                  <div key={`quality${index}`} className={style.quality}>
-                    <span className={style.qualityTitle}>
-                      [ {listByQuality[0].quality.trim()} ]
-                    </span>
-                    {listByQuality.map((v, index) => {
-                      return (
-                        <span key={'url' + index} className={style.link}>
-                          <a
-                            style={{ color: getRandomColor(v.host) }}
-                            href={v.url}
-                            tabIndex={1}
-                            target="_blank"
-                            rel="noreferrer"
-                            onClick={(e) => {
-                              const clicked = document.createAttribute('style')
-                              e.currentTarget.attributes.setNamedItem(clicked)
-                            }}
-                          >
-                            {v.host}
-                          </a>
-                        </span>
-                      )
-                    })}
-                  </div>
-                )
-              })}
-            </div>
-          )
-        })}
+        {dl(data)}
       </div>
       <Bot />
     </div>

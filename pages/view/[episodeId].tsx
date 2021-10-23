@@ -20,7 +20,7 @@ export interface RawData {
   download: string
   episode: string
   player: Player[]
-  comment: string
+  animeId: number
 }
 
 export interface SanitizedData {
@@ -30,24 +30,34 @@ export interface SanitizedData {
   thumb: string
   episode: number
   player: Player[]
+  animeId: number
 }
 
 export interface InitialProps {
   data: SanitizedData | null
 }
 
-const getId = (v: string | undefined) =>
-  v ? +v.replace(/.+id=([0-9]+)/g, '$1') : null
-const getData = async (episodeId: number): Promise<SanitizedData | null> => {
+export const getId = (v: string | number | undefined) =>
+  !v
+    ? null
+    : typeof v === 'number'
+    ? Number(v)
+    : +v.replace(/.+id=([0-9]+)/g, '$1')
+export const getData = async (
+  episodeId: number | string[]
+): Promise<SanitizedData | null> => {
   try {
     if (!episodeId) throw new Error('Not a valid episodeId')
 
-    const url = `https://same.yui.pw/api/v2/episode/${episodeId}`
+    const url =
+      typeof episodeId === 'object'
+        ? `https://same.yui.pw/api/v2/anime/${episodeId[0]}/${episodeId[1]}`
+        : `https://same.yui.pw/api/v2/episode/${episodeId}`
     const response = await fetch(url)
     const data: RawData | null = await response.json()
     if (!data) throw new Error('Data is empty')
 
-    const { title, thumb, next, prev, episode, player } = data
+    const { title, thumb, next, prev, episode, player, animeId } = data
 
     const result: SanitizedData = {
       title,
@@ -56,6 +66,7 @@ const getData = async (episodeId: number): Promise<SanitizedData | null> => {
       prev: getId(prev),
       episode: +episode,
       player,
+      animeId,
     }
 
     return result
@@ -63,7 +74,7 @@ const getData = async (episodeId: number): Promise<SanitizedData | null> => {
     return null
   }
 }
-const antiWibu = async (data: SanitizedData): Promise<SanitizedData> => {
+export const antiWibu = async (data: SanitizedData): Promise<SanitizedData> => {
   const isWibuThere = data.player.some(
     (player) => player.url.indexOf('wibuu.info') > -1
   )
@@ -102,6 +113,9 @@ const View = () => {
     if (typeof episodeId === 'string') {
       getData(+episodeId).then((result) => {
         if (result) {
+          if (result.animeId) {
+            Router.push(`/view/${result.animeId}/${result.episode}`)
+          }
           antiWibu(result)
             .then(setData)
             .catch((e) => setData(result))
