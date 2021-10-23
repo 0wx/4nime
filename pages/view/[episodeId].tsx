@@ -14,6 +14,7 @@ export interface Player {
 
 export interface RawData {
   title: string
+  url?: string
   prev?: string
   next?: string
   thumb: string
@@ -24,6 +25,7 @@ export interface RawData {
 }
 
 export interface SanitizedData {
+  id: number
   title: string
   prev: number | null
   next: number | null
@@ -48,18 +50,18 @@ export const getData = async (
 ): Promise<SanitizedData | null> => {
   try {
     if (!episodeId) throw new Error('Not a valid episodeId')
-
-    const url =
-      typeof episodeId === 'object'
-        ? `https://same.yui.pw/api/v2/anime/${episodeId[0]}/${episodeId[1]}`
-        : `https://same.yui.pw/api/v2/episode/${episodeId}`
+    const isArr = typeof episodeId === 'object'
+    const url = isArr
+      ? `https://same.yui.pw/api/v2/anime/${episodeId[0]}/${episodeId[1]}`
+      : `https://same.yui.pw/api/v2/episode/${episodeId}`
     const response = await fetch(url)
     const data: RawData | null = await response.json()
     if (!data) throw new Error('Data is empty')
-
+    const id: number = isArr ? getId(data.url!)! : +episodeId? episodeId : 0
     const { title, thumb, next, prev, episode, player, animeId } = data
 
     const result: SanitizedData = {
+      id,
       title,
       thumb,
       next: getId(next),
@@ -132,6 +134,7 @@ const View = () => {
         next={next}
         prev={prev}
         setData={setData}
+        episodeId={data.id}
       />
     )
   }

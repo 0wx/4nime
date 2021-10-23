@@ -6,7 +6,7 @@ import { Loading } from '../../components/Loading'
 import Custom404 from '../404'
 import { Bot } from '../../components/BotButton'
 import Head from 'next/head'
-interface Batch {
+export interface Batch {
   title: string
   thumb: string
   download: Download[]
@@ -31,32 +31,36 @@ export const dl = (data: Batch) =>
   downloadUrlMaker(data.download).map((listByType, index) => {
     return (
       <div key={`type${index}`} className={style.type}>
-        <span className={style.typeTitle}>{listByType[0][0].videoType}</span>
+        <b>
+          <span className={style.typeTitle}>{listByType[0][0].videoType}</span>
+        </b>
         {listByType.map((listByQuality, index) => {
           return (
             <div key={`quality${index}`} className={style.quality}>
-              <span className={style.qualityTitle}>
-                [ {listByQuality[0].quality.trim()} ]
-              </span>
-              {listByQuality.map((v, index) => {
-                return (
-                  <span key={'url' + index} className={style.link}>
-                    <a
-                      style={{ color: getRandomColor(v.host) }}
-                      href={v.url}
-                      tabIndex={1}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={(e) => {
-                        const clicked = document.createAttribute('style')
-                        e.currentTarget.attributes.setNamedItem(clicked)
-                      }}
-                    >
-                      {v.host}
-                    </a>
-                  </span>
-                )
-              })}
+              <div className={style.qualityTitle}>
+                {listByQuality[0].quality.trim()}
+              </div>
+              <div className={style.download}>
+                {listByQuality.map((v, index) => {
+                  return (
+                    <span key={'url' + index} className={style.link}>
+                      <a
+                        style={{ color: getRandomColor(v.host) }}
+                        href={v.url}
+                        tabIndex={1}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => {
+                          const clicked = document.createAttribute('style')
+                          e.currentTarget.attributes.setNamedItem(clicked)
+                        }}
+                      >
+                        {v.host}
+                      </a>
+                    </span>
+                  )
+                })}
+              </div>
             </div>
           )
         })}
@@ -94,9 +98,7 @@ const Batch = () => {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={data.thumb} alt={data.title} />
       <h2 style={{ color: '#eee' }}>{data.title}</h2>
-      <div className={style.url}>
-        {dl(data)}
-      </div>
+      <div className={style.url}>{dl(data)}</div>
       <Bot />
     </div>
   )

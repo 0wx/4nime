@@ -21,7 +21,7 @@ const Anime = () => {
     }
   }, [animeId])
   if (data) {
-    const { title, next, prev, player } = data
+    const { title, next, prev, player, id } = data
     return (
       <Stream
         player={player}
@@ -30,6 +30,7 @@ const Anime = () => {
         prev={prev}
         setData={setData}
         animeId={animeId}
+        episodeId={id}
       />
     )
   }
