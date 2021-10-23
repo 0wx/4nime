@@ -57,7 +57,7 @@ export const getData = async (
     const response = await fetch(url)
     const data: RawData | null = await response.json()
     if (!data) throw new Error('Data is empty')
-    const id: number = isArr ? getId(data.url!)! : +episodeId? episodeId : 0
+    const id: number = isArr ? getId(data.url!)! : +episodeId ? episodeId : 0
     const { title, thumb, next, prev, episode, player, animeId } = data
 
     const result: SanitizedData = {

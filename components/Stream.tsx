@@ -9,6 +9,7 @@ import { List } from './EpisodeList'
 interface Props {
   animeId?: string | string[]
   episodeId: number
+  current: number
   player: Player[]
   next: number | null
   prev: number | null
@@ -95,7 +96,9 @@ export default function Stream(props: Props) {
             <button onClick={() => setShowEpisodes((v) => !v)}>
               {!showEpisodes ? 'Lihat Semua Episode' : 'Tutup Semua Episode'}
             </button>
-            {isAnimeIdExist && showEpisodes && <List animeId={+animeId[0]}/>}
+            {isAnimeIdExist && showEpisodes && (
+              <List current={props.current} animeId={+animeId[0]} />
+            )}
           </div>
         </div>
         <Bot />

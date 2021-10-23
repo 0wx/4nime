@@ -17,7 +17,7 @@ export default function Custom404() {
       <div className={style.title}>
         <h1>404</h1>
         <h2>Yg kamu cari ga ada bro.</h2>
-        <Bot/>
+        <Bot />
       </div>
     </div>
   )

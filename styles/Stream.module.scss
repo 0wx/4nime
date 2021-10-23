@@ -1,10 +1,12 @@
+@import 'styles/Var.module.scss';
+
 .stream {
   width: auto;
   height: 45vh;
 }
 
 .title {
-  color: #eee;
+  color: $main-text;
   text-align: center;
   margin: 15px 0;
 }
@@ -16,8 +18,8 @@
 
   button {
     padding: 5px 10px;
-    background-color: rgb(105, 105, 105);
-    color: #eee;
+    background-color: $nd;
+    color: $main-text;
     border-radius: 10px;
     margin: 0 5px;
     border: none;
@@ -32,10 +34,10 @@
   margin: 20px 0;
   button {
     padding: 15px 20px;
-    background-color: rgb(105, 105, 105);
+    background-color: $nd;
     border-radius: 10px;
     margin: 0 1px;
-    color: #eee;
+    color: $main-text;
     border: none;
     cursor: pointer;
   }
@@ -47,10 +49,10 @@
   margin: 20px 0;
   button {
     padding: 15px 20px;
-    background-color: rgb(105, 105, 105);
+    background-color: $nd;
     border-radius: 10px;
     margin: 0 1px;
-    color: #eee;
+    color: $main-text;
     border: none;
     cursor: pointer;
   }
@@ -75,12 +77,16 @@
 
 .downloadURL {
   padding: 4px;
-  color: #eee;
+  color: $main-text;
 
   button {
     width: 100%;
     border-radius: 20px;
     margin-bottom: 10px;
+    background-color: $nd;
+    color: $main-text;
+    padding: 5px;
+    border: none;
   }
 }
 
@@ -98,24 +104,30 @@
 }
 
 .epsOdd {
-  background-color: rgb(54, 54, 54);
+  background-color: $nd;
 }
 .epsEven {
-  background-color: rgb(80, 80, 80);
+  background-color: $nd-dim;
 }
 
 .epsEven,
-.epsOdd {
+.epsOdd,
+.epsCurrent {
   padding: 10px 10px;
   cursor: pointer;
+  color: $main-text;
 }
 .epsOdd:hover {
-  color: rgb(49, 49, 49);
-  background-color: rgb(255, 212, 160);
+  color: $bg;
+  background-color: $second-text;
 }
 .epsEven:hover {
-  color: rgb(49, 49, 49);
-  background-color: rgb(255, 212, 160);
+  color: $bg;
+  background-color: $second-text;
+}
+.epsCurrent {
+  background-color: $second-text;
+  color: $bg;
 }
 
 @media only screen and (min-width: 768px) {

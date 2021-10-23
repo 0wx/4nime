@@ -5,6 +5,7 @@ import Link from 'next/link'
 
 interface Props {
   animeId: number
+  current: number
 }
 export const List = (props: Props) => {
   const { animeId } = props
@@ -18,24 +19,32 @@ export const List = (props: Props) => {
   if (data === 0) return <Loading height="20px" />
   if (!data) return <div>Nothing here</div>
   return (
-      <div className={style.episodes}>
-        {data
-          .map((v) => +v)
-          .sort((a, b) => b - a)
-          .map((v, i) => {
-            return (
-              <Link
-                key={i + 'eps'}
-                href="/view/[[...animeId]]"
-                as={`/view/${animeId}/${v}`}
-                passHref
+    <div className={style.episodes}>
+      {data
+        .map((v) => +v)
+        .sort((a, b) => b - a)
+        .map((v, i) => {
+          return (
+            <Link
+              key={i + 'eps'}
+              href="/view/[[...animeId]]"
+              as={`/view/${animeId}/${v}`}
+              passHref
+            >
+              <div
+                className={
+                  v === props.current
+                    ? style.epsCurrent
+                    : i % 2
+                    ? style.epsOdd
+                    : style.epsEven
+                }
               >
-                <div className={i % 2 ? style.epsOdd : style.epsEven}>
-                  Episode {v}
-                </div>
-              </Link>
-            )
-          })}
-      </div>
+                Episode {v}
+              </div>
+            </Link>
+          )
+        })}
+    </div>
   )
 }
