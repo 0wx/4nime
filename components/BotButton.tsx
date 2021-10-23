@@ -8,7 +8,7 @@ export const Bot = (props: BackToBot) => {
   return (
     <div>
       {props.episodeId && (
-        <button onClick={() => setShow(v => !v)}>Lihat Download URL</button>
+        <button onClick={() => setShow((v) => !v)}>Lihat Download URL</button>
       )}
       {props.episodeId && show && <DownloadURL episodeId={props.episodeId} />}
       <a href="tg://resolve?domain=samehadakuu_bot">
@@ -21,7 +21,7 @@ export const Bot = (props: BackToBot) => {
             fontWeight: 'bold',
             border: 'none',
             cursor: ' pointer',
-            margin: '20px 0'
+            margin: '20px 0',
           }}
         >
           Kembali Ke @samehadakuu_bot

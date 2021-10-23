@@ -37,7 +37,7 @@ export const DownloadURL = (props: DownloadButton) => {
   if (data === 0)
     return (
       <div className={style.showLoading}>
-        <Loading height='200px'/>
+        <Loading height="200px" />
       </div>
     )
   if (!data) return <div>Nothing Here</div>

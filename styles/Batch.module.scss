@@ -9,12 +9,12 @@
     height: auto;
   }
   a {
-    color: rgb(185, 185, 185);
+    color: #f1e9e5;
   }
 }
 
 .url {
-  color: #eee;
+  color: #f1e9e5;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
@@ -59,7 +59,6 @@
   // border: 1px solid red;
   display: flex;
   flex-wrap: wrap;
-  
 }
 .download {
   width: 100%;
