@@ -1,12 +1,15 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 import { GA_TRACKING_ID } from '../components/gtag'
-
 export default class MyDocument extends Document {
   render() {
     return (
       <Html>
         <Head>
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
+          />
           {/* Global Site Tag (gtag.js) - Google Analytics */}
           <script
             async

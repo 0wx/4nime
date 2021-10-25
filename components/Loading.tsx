@@ -10,6 +10,7 @@ export const Loading = (props: Props) => (
       justifyContent: 'center',
       alignItems: 'center',
       height: props.height || '90vh',
+      width: '100%',
     }}
   >
     <Head>

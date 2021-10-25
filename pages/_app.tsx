@@ -1,12 +1,14 @@
 import '../styles/globals.scss'
 import type { AppProps } from 'next/app'
-
-import NProgress from 'nprogress'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { config } from '@fortawesome/fontawesome-svg-core'
+// import NProgress from 'nprogress'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import * as gtag from '../components/gtag'
 
+config.autoAddCss = false
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
   useEffect(() => {

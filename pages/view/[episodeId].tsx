@@ -99,7 +99,10 @@ export const antiWibu = async (data: SanitizedData): Promise<SanitizedData> => {
 
       const response = await fetch(replacedUrl)
       const newUrl = await response.text()
-      player.url = player.url.replace(tobeReplaced, newUrl)
+      player.url = player.url.replace(
+        tobeReplaced,
+        newUrl === 'not ok' ? '/404' : newUrl
+      )
 
       newPlayer.push(player)
     })

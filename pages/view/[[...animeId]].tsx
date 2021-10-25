@@ -4,7 +4,7 @@ import { Loading } from '../../components/Loading'
 import Stream from '../../components/Stream'
 import Custom404 from '../404'
 import { antiWibu, getData, SanitizedData } from './[episodeId]'
-
+import Main from '../../components/Main'
 const Anime = () => {
   const router = useRouter()
   const { animeId } = router.query
@@ -23,31 +23,45 @@ const Anime = () => {
   if (data) {
     const { title, next, prev, player, id, episode } = data
     return (
-      <Stream
-        player={player}
-        title={title}
-        next={next}
-        prev={prev}
-        setData={setData}
-        animeId={animeId}
-        episodeId={id}
-        current={+episode}
-      />
+      <Main>
+        <Stream
+          player={player}
+          title={title}
+          next={next}
+          prev={prev}
+          setData={setData}
+          animeId={animeId}
+          episodeId={id}
+          current={+episode}
+        />
+      </Main>
     )
   }
 
   if (data === 0) {
-    return <Loading />
+    return (
+      <Main>
+        <Loading />
+      </Main>
+    )
   }
 
   if (!data) {
-    return <Custom404 />
+    return (
+      <Main>
+        <Custom404 />
+      </Main>
+    )
   }
   if (typeof animeId === 'object') {
     return <div>{animeId}</div>
   }
 
-  return <Custom404 />
+  return (
+    <Main>
+      <Custom404 />
+    </Main>
+  )
 }
 
 export default Anime

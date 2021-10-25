@@ -61,47 +61,49 @@ export default function Stream(props: Props) {
         )
       : null
   return (
-    <div>
+    <div className={style.mainContainer}>
       <Head>
         <title>{title}</title>
       </Head>
-      <div>
+      <div className={style.streamContainer}>
         <div
           className={style.stream}
           dangerouslySetInnerHTML={{ __html: player[server].url }}
         ></div>
       </div>
-      <div className={style.title}>{title}</div>
-      <div className={style.nav}>
-        <div className={style.button}>
-          <div className={style.server}>
-            {player &&
-              player.map((value, index) => {
-                return (
-                  <button key={index} onClick={() => selecServer(index)}>
-                    {value.title}
-                  </button>
-                )
-              })}
+      <div className={style.navWrapper}>
+        <div className={style.nav}>
+          <div className={style.title}>{title}</div>
+          <div className={style.button}>
+            <div className={style.server}>
+              {player &&
+                player.map((value, index) => {
+                  return (
+                    <button key={index} onClick={() => selecServer(index)}>
+                      {value.title}
+                    </button>
+                  )
+                })}
+            </div>
+            <div className={prev ? style.navigation : style.navigationRight}>
+              {Prev && <Prev />}
+              {Next && <Next />}
+            </div>
+            <div className={style.downloadURL}>
+              <button onClick={() => setShow((v) => !v)}>
+                {!show ? 'Lihat Link Download' : 'Tutup Link Download'}
+              </button>
+              {show && <DownloadURL episodeId={episodeId} />}
+              <button onClick={() => setShowEpisodes((v) => !v)}>
+                {!showEpisodes ? 'Lihat Semua Episode' : 'Tutup Semua Episode'}
+              </button>
+              {isAnimeIdExist && showEpisodes && (
+                <List current={props.current} animeId={+animeId[0]} />
+              )}
+            </div>
           </div>
-          <div className={prev ? style.navigation : style.navigationRight}>
-            {Prev && <Prev />}
-            {Next && <Next />}
-          </div>
-          <div className={style.downloadURL}>
-            <button onClick={() => setShow((v) => !v)}>
-              {!show ? 'Lihat Link Download' : 'Tutup Link Download'}
-            </button>
-            {show && <DownloadURL episodeId={episodeId} />}
-            <button onClick={() => setShowEpisodes((v) => !v)}>
-              {!showEpisodes ? 'Lihat Semua Episode' : 'Tutup Semua Episode'}
-            </button>
-            {isAnimeIdExist && showEpisodes && (
-              <List current={props.current} animeId={+animeId[0]} />
-            )}
-          </div>
+          <Bot />
         </div>
-        <Bot />
       </div>
     </div>
   )
