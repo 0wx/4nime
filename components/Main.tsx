@@ -5,12 +5,11 @@ const Main = (props: any) => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
         height: '100vh',
       }}
     >
       <Navbar />
-      <div style={{ display: 'flex', flexGrow: 1 }}>{props.children}</div>
+      <div style={{ display: 'flex' }}>{props.children}</div>
     </div>
   )
 }

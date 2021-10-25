@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction, useState } from 'react'
-import { Player, SanitizedData } from '../pages/view/[episodeId]'
+import { Player, SanitizedData } from '../pages/view/[[...animeId]]'
 import style from '../styles/Stream.module.scss'
 import Link from 'next/link'
 import Head from 'next/head'
 import { Bot } from './BotButton'
-import { DownloadURL } from './DownloadURL'
+import { DownloadURL } from './DownloadURLV2'
 import { List } from './EpisodeList'
 interface Props {
   animeId?: string | string[]

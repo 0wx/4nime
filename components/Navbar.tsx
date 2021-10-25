@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { nanoid } from 'nanoid'
 import { randomLightColor } from 'seed-to-color'
-import Router from 'next/router'
+import Link from 'next/link'
 export interface Data {
   genre: string[]
   type: string
@@ -41,9 +41,9 @@ class SearchTool {
       this.last = time
     }
   }
-  search = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
+  search = async (e: ChangeEvent<HTMLInputElement> | string): Promise<void> => {
     const time = Date.now()
-    const query = encodeURIComponent(e.target.value)
+    const query = encodeURIComponent(typeof e === 'string' ? e : e.target.value)
 
     try {
       const response: SearchResult[] = await (
@@ -57,10 +57,20 @@ class SearchTool {
   }
 }
 export const SerachIcon = () => (
-  <FontAwesomeIcon icon={faSearch} size={'1x'} color="#eee" />
+  <FontAwesomeIcon
+    style={{ cursor: 'pointer' }}
+    icon={faSearch}
+    size={'1x'}
+    color="#eee"
+  />
 )
 export const CloseIcon = () => (
-  <FontAwesomeIcon icon={faTimes} size={'1x'} color="#eee" />
+  <FontAwesomeIcon
+    style={{ cursor: 'pointer' }}
+    icon={faTimes}
+    size={'1x'}
+    color="#eee"
+  />
 )
 
 const Navbar = () => {
@@ -74,42 +84,47 @@ const Navbar = () => {
         <div style={{ pointerEvents: 'all' }}>
           {props.data.map((v) => {
             return (
-              <div
+              <Link
                 key={nanoid()}
-                className={style.result}
-                onClick={() => {
-                  setData([])
-                  setShow(false)
-                  Router.push('/view/' + v.id + '/1')
-                }}
+                href="/view/[[...animeId]]"
+                as={`/view/${v.id}/1`}
+                passHref
               >
-                <img src={v.img} alt={v.title} width="100px" height="100%" />
+                <div
+                  className={style.result}
+                  onClick={() => {
+                    setData([])
+                    // setShow(false)
+                  }}
+                >
+                  <img src={v.img} alt={v.title} width="100px" height="100%" />
 
-                <div className={style.detail}>
-                  <div className={style.title}>
-                    {v.title}
-                    <span
-                      style={{
-                        backgroundColor: `#${randomLightColor(v.data.type)}`,
-                        color: `#474747`,
-                      }}
-                      className={style.type}
-                    >
-                      {v.data.type}
-                    </span>
+                  <div className={style.detail}>
+                    <div className={style.title}>
+                      {v.title}
+                      <span
+                        style={{
+                          backgroundColor: `#${randomLightColor(v.data.type)}`,
+                          color: `#474747`,
+                        }}
+                        className={style.type}
+                      >
+                        {v.data.type}
+                      </span>
+                    </div>
+                    <div className={style.genre}>
+                      {v.data.genre.map((x) => {
+                        return (
+                          <span key={nanoid()} className={style.tag}>
+                            {x}
+                          </span>
+                        )
+                      })}
+                    </div>
+                    <div className={style.score}>⭐ {v.data.score}</div>
                   </div>
-                  <div className={style.genre}>
-                    {v.data.genre.map((x) => {
-                      return (
-                        <span key={nanoid()} className={style.tag}>
-                          {x}
-                        </span>
-                      )
-                    })}
-                  </div>
-                  <div className={style.score}>⭐ {v.data.score}</div>
                 </div>
-              </div>
+              </Link>
             )
           })}
         </div>
@@ -126,7 +141,16 @@ const Navbar = () => {
           <div className={style.searchBox}>
             {show && (
               <div className={style.searchInput}>
-                <input autoFocus type="text" onChange={searchTool.search} />
+                <input
+                  autoFocus
+                  onFocus={(e) => {
+                    if (!!e.currentTarget.value) {
+                      searchTool.search(e.currentTarget.value)
+                    }
+                  }}
+                  type="text"
+                  onChange={searchTool.search}
+                />
               </div>
             )}
 
