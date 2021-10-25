@@ -1,0 +1,121 @@
+@import '../styles/Var.module.scss';
+
+.container {
+  min-height: 90vh;
+  width: 100vw;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  // border: 1px solid red;
+  padding: 20px;
+}
+.cover {
+  height: auto;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.coverWrapper {
+  margin-right: 20px;
+  min-width: 40%;
+  // border: 1px solid red;
+}
+.detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  color: $main-text;
+  font-size: 25px;
+  font-style: bold;
+  // display: flex;
+  border-bottom: 1px solid $main-text-dim;
+  padding-bottom: 7px;
+  margin-bottom: 7px;
+}
+
+.type {
+  font-size: 15px;
+  color: $bg;
+  padding: 2px 5px;
+  margin: auto;
+  margin-left: 10px;
+  border-radius: 5px;
+}
+.synopsis {
+  text-align: justify;
+  text-justify: inter-word;
+  font-size: 12px;
+  color: $main-text-dim;
+}
+
+.key {
+  font-size: 12px;
+  font-weight: bold;
+  color: $main-text;
+  margin-bottom: 3px;
+  min-width: 35%;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.infoList {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2px;
+  padding: 2px 0;
+  border-bottom: 1px solid $bg-light;
+}
+
+.infoDetail {
+  color: $main-text-dim;
+  font-size: 12px;
+}
+
+.episodeListWrapper {
+  margin-top: 10px;
+}
+@media only screen and (min-width: 1000px) {
+  .container {
+    display: flex;
+    justify-content: center;
+  }
+  .header {
+    width: 80vw;
+  }
+  .coverWrapper {
+    display: flex;
+    flex-direction: row;
+    min-width: 40vw;
+    padding: 20px;
+  }
+  .coverWrapperWrapper {
+    min-width: 50%;
+    padding: 0 20px;
+  }
+  .episodeListWrapper {
+    margin-left: 20px;
+    flex-grow: 1;
+    margin-top: 0;
+  }
+
+  .coverWrapperWrapper {
+    width: 30%;
+  }
+  .synopsis,
+  .key,
+  .infoDetail {
+    font-size: 25px;
+  }
+  .title {
+    font-size: 50px;
+    display: flex;
+  }
+  .type {
+    font-size: 35px;
+    margin-left: 20px;
+  }
+}

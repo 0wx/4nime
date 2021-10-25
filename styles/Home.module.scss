@@ -1,12 +1,13 @@
 @import 'styles/Var.module.scss';
 
 .container {
-  min-height: 100vh;
+  height: 100%;
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100vw;
 }
 
 .main {
@@ -34,89 +35,131 @@
   flex-grow: 1;
 }
 
-.title a {
-  color: #0070f3;
-  text-decoration: none;
+.mainNav {
+  display: flex;
+  justify-content: center;
+  background-color: $bg-light;
+  padding: 5px 0;
+  flex-direction: row;
 }
 
-.title a:hover,
-.title a:focus,
-.title a:active {
-  text-decoration: underline;
+.nav {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  img {
+    width: 40px;
+    height: 40px;
+  }
+}
+.searchBox {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    padding: 7px;
+  }
+  input {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 2px 15px;
+  }
+  input:focus {
+    border: none;
+  }
+}
+.hidden {
+  display: none;
+}
+.searchInput {
+  display: flex;
+  flex-grow: 1;
+  padding: 5px;
+  margin: 0 5px;
+  max-width: 700px;
+}
+
+.result {
+  background-color: $bg-light;
+  border-bottom: 1px solid $bg;
+  display: flex;
+  padding: 20px;
+  cursor: pointer;
+}
+.result:hover {
+  background-color: $bg;
+  border-bottom: 1px solid $bg;
+  display: flex;
+  padding: 20px;
+  cursor: pointer;
+}
+.searchResult {
+  position: absolute;
+  max-height: 40vh;
+  overflow: auto;
+  width: 100vw;
+  max-width: 700px;
+}
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.detail {
+  margin-left: 20px;
+  color: #eee;
 }
 
 .title {
-  margin: 0;
-  line-height: 1.15;
-  font-size: 4rem;
+  font-size: 15px;
+  font-weight: bold;
 }
-
-.title,
-.description {
-  text-align: center;
-}
-
-.description {
-  line-height: 1.5;
-  font-size: 1.5rem;
-}
-
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.grid {
+.genre {
+  margin: 5px 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-wrap: wrap;
-  max-width: 800px;
-  margin-top: 3rem;
 }
-
-.card {
-  margin: 1rem;
-  padding: 1.5rem;
-  text-align: left;
-  color: inherit;
-  text-decoration: none;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  transition: color 0.15s ease, border-color 0.15s ease;
-  width: 45%;
+.tag {
+  font-size: 10px;
+  color: $bg;
+  background-color: #fcff3b;
+  border-radius: 5px;
+  padding: 3px 6px;
+  margin: 1px;
 }
-
-.card:hover,
-.card:focus,
-.card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+.type {
+  padding: 2px 5px;
+  font-size: 10px;
+  border-radius: 5px;
+  margin-left: 7px;
+  padding-top: 3px;
 }
-
-.card h2 {
-  margin: 0 0 1rem 0;
-  font-size: 1.5rem;
-}
-
-.card p {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.5;
-}
-
-.logo {
-  height: 1em;
-  margin-left: 0.5rem;
-}
-
 @media (max-width: 600px) {
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .searchContainer {
+    margin-right: 45px;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .tag {
+    font-size: 12px;
+    margin: 3px;
+  }
+  .type {
+    padding: 2px 5px;
+    font-size: 15px;
+    border-radius: 5px;
+    margin-left: 7px;
   }
 }

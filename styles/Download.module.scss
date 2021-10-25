@@ -1,0 +1,53 @@
+@import 'styles/Var.module.scss';
+
+.show {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.byType {
+  // border: 1px solid red;
+  background-color: $bg-dim;
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.title {
+  // border: 1px solid red;
+  text-align: center;
+  background-color: $nd-dim;
+  color: $main-text;
+  margin-bottom: 15px;
+}
+
+.byQuality {
+  display: flex;
+  padding: 5px 0;
+  border-bottom: 1px solid $nd;
+}
+.content {
+  display: flex;
+  flex-wrap: wrap;
+}
+.title2 {
+  margin-right: 5px;
+  min-width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.downloadUrl {
+  margin: 2px 3px;
+  a {
+    color: $nd;
+  }
+  a:active {
+    color: $nd;
+  }
+}
