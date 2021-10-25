@@ -86,8 +86,8 @@ const Navbar = () => {
             return (
               <Link
                 key={nanoid()}
-                href="/view/[[...animeId]]"
-                as={`/view/${v.id}/1`}
+                href="/view/[animeId]"
+                as={`/view/${v.id}`}
                 passHref
               >
                 <div

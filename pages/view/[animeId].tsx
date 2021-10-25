@@ -146,23 +146,25 @@ const AnimeId = () => {
         <div className={style.container}>
           <div className={style.header}>
             <div className={style.coverWrapper}>
-              <img
-                className={style.cover}
-                src={img || cover}
-                alt={title}
-                width={'auto'}
-              />
-              <div className={style.info}>
-                {info
-                  .filter((v) => !!v.value)
-                  .map((v) => {
-                    return (
-                      <div className={style.infoList} key={nanoid()}>
-                        <div className={style.key}>{v.key}</div>
-                        <div className={style.infoDetail}>{v.value}</div>
-                      </div>
-                    )
-                  })}
+              <div className={style.coverWrapperWrapper}>
+                <img
+                  className={style.cover}
+                  src={img || cover}
+                  alt={title}
+                  width={'auto'}
+                />
+                <div className={style.info}>
+                  {info
+                    .filter((v) => !!v.value)
+                    .map((v) => {
+                      return (
+                        <div className={style.infoList} key={nanoid()}>
+                          <div className={style.key}>{v.key}</div>
+                          <div className={style.infoDetail}>{v.value}</div>
+                        </div>
+                      )
+                    })}
+                </div>
               </div>
               <div className={style.episodeListWrapper}>
                 <div className={style.key}>Daftar</div>

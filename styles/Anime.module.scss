@@ -78,3 +78,45 @@
 .episodeListWrapper {
   margin-top: 10px;
 }
+@media only screen and (min-width: 1000px) {
+  .container {
+    display: flex;
+    justify-content: center;
+  }
+  .header {
+    width: 80vw;
+  }
+  .coverWrapper {
+    display: flex;
+    flex-direction: row;
+    min-width: 40vw;
+    padding: 20px;
+  }
+  .coverWrapperWrapper {
+    min-width: 50%;
+    padding: 0 20px;
+    
+  }
+  .episodeListWrapper {
+    
+    margin-left: 20px;
+    flex-grow: 1;
+    margin-top: 0;
+  }
+
+  .coverWrapperWrapper {
+    width: 30%;
+    
+  }
+  .synopsis, .key, .infoDetail {
+    font-size: 25px;
+  }
+  .title {
+    font-size: 50px;
+    display: flex;
+  }
+  .type {
+    font-size: 35px;
+    margin-left: 20px;
+  }
+}
