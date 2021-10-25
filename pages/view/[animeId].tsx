@@ -9,6 +9,7 @@ import AnimeEpisode from './[[...animeId]]'
 import { randomLightColor } from 'seed-to-color'
 import { nanoid } from 'nanoid'
 import { List } from '../../components/EpisodeList'
+import Head from 'next/head'
 export type RequestType = 'anime' | 'episode'
 export interface RequestData {
   id: number
@@ -143,6 +144,9 @@ const AnimeId = () => {
     ]
     return (
       <Main>
+        <Head>
+          <title>{title}</title>
+        </Head>
         <div className={style.container}>
           <div className={style.header}>
             <div className={style.coverWrapper}>
