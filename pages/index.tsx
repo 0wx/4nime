@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Bot } from '../components/BotButton'
 import style from '../styles/Index.module.scss'
 import Main from '../components/Main'
 import { useEffect, useState } from 'react'
 import { nanoid } from 'nanoid'
 import Link from 'next/link'
 import { randomLightColor } from 'seed-to-color'
+import { Loading } from '../components/Loading'
 export interface Data {
   url: string
   episode: string
@@ -62,6 +62,7 @@ const Home: NextPage = () => {
         <div className={style.latest}>
           <div className={style.headerText}>Update Terbaru</div>
           <div className={style.latestWrapper}>
+            {!data && <Loading height='200px'/>}
             {data &&
               data.latest.map((v) => {
                 if (!Number(v.url.split('id=')[1]) && !Number(v.data.episode))
@@ -118,6 +119,7 @@ const Home: NextPage = () => {
         <div className={style.batch}>
           <div className={style.headerText}>Batch Terbaru</div>
           <div className={style.batchWrapper}>
+            {!data && <Loading height='200px'/>}
             {data &&
               data.batch.map((v) => {
                 return (

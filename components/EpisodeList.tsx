@@ -16,12 +16,11 @@ export const List = (props: Props) => {
   const [refDown, setRefDown] = useState<HTMLDivElement | null>(null)
   const [refUp, setRefUp] = useState<HTMLDivElement | null>(null)
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  
-  useEffect(() => {
-    if(refDown) refDown.scrollIntoView({behavior: 'smooth'})
-    setTimeout(() => {
 
-      if(refUp) refUp.scrollIntoView({behavior: 'smooth'})
+  useEffect(() => {
+    if (refDown) refDown.scrollIntoView({ behavior: 'smooth' })
+    setTimeout(() => {
+      if (refUp) refUp.scrollIntoView({ behavior: 'smooth' })
     }, 1000)
     if (!list)
       fetch('https://same.yui.pw/api/v2/anime/' + animeId)
@@ -33,7 +32,6 @@ export const List = (props: Props) => {
   if (!data) return <div>Nothing here</div>
   return (
     <div style={props.parentStyle || {}} className={style.episodes}>
-
       <div ref={setRefUp} />
       {data
         .map((v) => +v)
@@ -61,7 +59,7 @@ export const List = (props: Props) => {
             </Link>
           )
         })}
-        <div ref={setRefDown} />
+      <div ref={setRefDown} />
     </div>
   )
 }

@@ -198,7 +198,9 @@ const AnimeId = () => {
                           as={`/batch/${batchId}`}
                           passHref
                         >
-                          <button className={style.downloadBatchButton}>Download Batch</button>
+                          <button className={style.downloadBatchButton}>
+                            Download Batch
+                          </button>
                         </Link>
                       )}
                     </div>
