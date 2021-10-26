@@ -1,11 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import style from '../styles/Home.module.scss'
-import {
-  useState,
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-} from 'react'
+import { useState, ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { nanoid } from 'nanoid'
@@ -134,7 +129,13 @@ const Navbar = () => {
     <div className={style.containerBox}>
       <div className={style.mainNav}>
         <div className={style.nav}>
-          <img src="https://i.postimg.cc/PqnH93sL/logo-min.webp" alt="logo" />
+          <Link key={nanoid()} href="/index" as={`/`} passHref>
+            <img
+              style={{ cursor: 'pointer' }}
+              src="https://i.postimg.cc/PqnH93sL/logo-min.webp"
+              alt="logo"
+            />
+          </Link>
 
           <div className={style.searchBox}>
             {show && (

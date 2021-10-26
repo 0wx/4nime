@@ -10,6 +10,8 @@ import { randomLightColor } from 'seed-to-color'
 import { nanoid } from 'nanoid'
 import { List } from '../../components/EpisodeList'
 import Head from 'next/head'
+import { ThreeDots } from 'react-loading-icons'
+import Link from 'next/link'
 export type RequestType = 'anime' | 'episode'
 export interface RequestData {
   id: number
@@ -98,8 +100,21 @@ const getdata = async (props: RequestData): Promise<Anime | Episode | null> => {
   }
 }
 
+interface BatchResponse {
+  batch: number | null
+}
+const getBatch = async (id: number): Promise<number | null> => {
+  try {
+    const response = await fetch('https://same.yui.pw/api/v2/getbatch/' + id)
+    const data: BatchResponse = await response.json()
+    return data.batch
+  } catch (error) {
+    return null
+  }
+}
 const AnimeId = () => {
   const [data, setData] = useState<Anime | Episode | null | 0>(0)
+  const [batchId, setBatchId] = useState<number | null | 0>(0)
   const { query } = useRouter()
   const { animeId } = query
 
@@ -107,7 +122,6 @@ const AnimeId = () => {
     if (animeId && typeof animeId === 'string' && Number(animeId) && animeId) {
       getdata({ type: 'anime', id: +animeId })
         .then((result) => {
-          console.log(1, result)
           if (!result) return getdata({ type: 'episode', id: +animeId })
           setData(result)
           return
@@ -124,6 +138,9 @@ const AnimeId = () => {
           }
         })
         .catch((e) => setData(null))
+        .finally(() => {
+          getBatch(+animeId).then(setBatchId)
+        })
     }
   }, [animeId])
   if (data && data.type === 'episode' && typeof animeId === 'string') {
@@ -168,6 +185,24 @@ const AnimeId = () => {
                         </div>
                       )
                     })}
+                  <div className={style.infoList} key={nanoid()}>
+                    <div className={style.key}>Batch</div>
+                    <div className={style.infoDetail}>
+                      {batchId === 0 ? (
+                        <ThreeDots height={'6px'} />
+                      ) : !batchId ? (
+                        'Belum ada batch'
+                      ) : (
+                        <Link
+                          href="/batch/[batchId]"
+                          as={`/batch/${batchId}`}
+                          passHref
+                        >
+                          <button className={style.downloadBatchButton}>Download Batch</button>
+                        </Link>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className={style.episodeListWrapper}>

@@ -1,0 +1,117 @@
+@import './Var.module.scss';
+
+.container {
+  width: 100vw;
+  min-height: 80vh;
+}
+.latest,
+.batch {
+  padding: 5vw;
+}
+
+.latestItem {
+  // border: 1px solid red;
+  background-color: $bg-dim;
+  margin-bottom: 20px;
+  height: 50vw;
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+.title {
+  color: #eee;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.type {
+  font-size: 15px;
+  color: $bg;
+  padding: 3px 5px;
+  border-radius: 7px;
+  margin-left: 4px;
+}
+.episode {
+  margin-top: 12px;
+}
+.epsNumber {
+  border-radius: 7px;
+  color: $bg-dim;
+}
+.eps,
+.epsNumber {
+  padding: 3px 9px;
+  font-weight: bold;
+}
+
+.time {
+  color: $main-text;
+  font-weight: bold;
+}
+
+.batchItem {
+  min-height: 100px;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.batchItem:hover {
+  filter: grayscale(100%);
+}
+.latestItem:hover {
+  filter: grayscale(100%);
+}
+.headerText {
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #eee;
+  text-indent: 10px;
+  margin-bottom: 20px;
+  background-color: $bg-dim;
+  padding: 10px;
+}
+@media only screen and (min-width: 1000px) {
+  .container {
+    padding: 20px 10vw;
+    display: flex;
+  }
+  .latest,
+  .batch {
+    padding: 20px;
+  }
+  .latest {
+    display: flex;
+    flex-direction: column;
+  }
+  .latestWrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .latestItem {
+    width: 16vw;
+    height: 9vw;
+    margin: 15px 10px;
+    
+  }
+  .batch {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-grow: 2;
+  }
+  .batchItem {
+    min-height: 5vw;
+    margin: 0 15px;
+    margin-top: 15px;
+  }
+  .batchWrapper {
+    height: 80vh;
+    overflow: auto;
+  }
+}

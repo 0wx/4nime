@@ -166,7 +166,7 @@ const Batch = () => {
           <div className={style.info}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={data.thumb} alt={data.title} />
-            <h2 style={{ color: '#eee' }}>{data.title}</h2>
+            <h2 className={style.infoTitle} style={{ color: '#eee' }}>{data.title}</h2>
             <Bot />
           </div>
           <div className={style.url}>{dl(data)}</div>

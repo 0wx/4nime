@@ -78,6 +78,13 @@
 .episodeListWrapper {
   margin-top: 10px;
 }
+.downloadBatchButton {
+  background-color: $second-text;
+  font-size: 10px;
+  border: none;
+  color: $bg;
+  border-radius: 3px;
+}
 @media only screen and (min-width: 1000px) {
   .container {
     display: flex;
