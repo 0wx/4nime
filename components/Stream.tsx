@@ -4,7 +4,7 @@ import style from '../styles/Stream.module.scss'
 import Link from 'next/link'
 import Head from 'next/head'
 import { Bot } from './BotButton'
-import { DownloadURL } from './DownloadURLV2'
+import { DownloadURL } from './DownloadURL'
 import { List } from './EpisodeList'
 interface Props {
   animeId?: string | string[]

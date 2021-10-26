@@ -1,12 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import style from '../styles/Home.module.scss'
 import {
-  useRef,
   useState,
   ChangeEvent,
   Dispatch,
   SetStateAction,
-  RefObject,
 } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'

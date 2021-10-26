@@ -1,68 +1,36 @@
+@import './Var.module.scss';
+@import './Download.module.scss';
+
 .container {
+  width: 100vw;
+}
+.containerWrapper {
   display: flex;
-  margin: auto;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0;
-  img {
-    width: 300px;
-    height: auto;
-  }
-  a {
-    color: #f1e9e5;
-  }
+  padding: 20px;
+  margin: auto;
+  color: $main-text;
 }
 
-.url {
-  color: #f1e9e5;
+.info {
   display: flex;
-  align-items: flex-start;
   flex-direction: column;
-  max-width: 300px;
+  align-items: center;
 }
-
-.link {
-  margin: 0 5px;
-  a:active {
-    color: rgb(88, 88, 88);
+@media only screen and (min-width: 1000px) {
+  .containerWrapper {
+    width: 80vw;
+    flex-direction: row;
+    align-items: flex-start;
+    .url {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      .byType {
+        max-width: 400px;
+        margin-left: 20px;
+      }
+    }
   }
-  a[tabindex]:focus {
-    color: rgb(88, 88, 88);
-    outline: none;
-  }
-}
-
-.type {
-  margin: 20px 0;
-}
-
-.typeTitle {
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-  font-size: large;
-  padding-left: 20px;
-}
-
-.qualityTitle {
-  margin-right: 5px;
-  margin-left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.quality {
-  margin-top: 5px;
-  margin-left: 0;
-  width: 100%;
-  // border: 1px solid red;
-  display: flex;
-  flex-wrap: wrap;
-}
-.download {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
 }

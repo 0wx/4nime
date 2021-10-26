@@ -14,14 +14,33 @@
   margin-bottom: 20px;
   width: 100%;
 }
+.byTypeWrapper {
+  margin-top: 10px;
+}
 .title {
   // border: 1px solid red;
   text-align: center;
   background-color: $nd-dim;
   color: $main-text;
-  margin-bottom: 15px;
+  flex-grow: 1;
+  cursor: pointer;
 }
-
+.titleWrapper {
+  display: flex;
+  flex-direction: row;
+  span {
+    border-radius: 2px;
+    border: none;
+    background-color: $bg-dim;
+    color: $main-text;
+    cursor: pointer;
+    margin-left: 10px;
+    color: $main-text-dim;
+  }
+  .title {
+    flex-grow: 1;
+  }
+}
 .byQuality {
   display: flex;
   padding: 5px 0;

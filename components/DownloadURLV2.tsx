@@ -69,38 +69,42 @@ export const DownloadURL = (props: DownloadButton) => {
             {' '}
             {/** Kotak gedi jobo */}
             <div className={style.title}>{byType}</div> {/** title 'MKV' */}
-            {Object.keys(parser(data)[byType]).map((byQuality) => {
-              return (
-                <div key={nanoid()} className={style.byQuality}>
-                  <div className={style.title2}>{byQuality}</div>{' '}
-                  {/** title '1080p' */}
-                  <div className={style.content}>
-                    {parser(data)[byType][byQuality].map(
-                      ({ host, url }: { host: string; url: string }) => {
-                        return (
-                          <span key={nanoid()} className={style.downloadUrl}>
-                            <a
-                              style={{ color: `#${randomLightColor(host)}` }}
-                              href={url}
-                              tabIndex={1}
-                              target={'_blank'}
-                              rel="noreferrer"
-                              onClick={(e) => {
-                                const clicked =
-                                  document.createAttribute('style')
-                                e.currentTarget.attributes.setNamedItem(clicked)
-                              }}
-                            >
-                              {host}
-                            </a>
-                          </span>
-                        )
-                      }
-                    )}
+            <div className={style.byTypeWrapper}>
+              {Object.keys(parser(data)[byType]).map((byQuality) => {
+                return (
+                  <div key={nanoid()} className={style.byQuality}>
+                    <div className={style.title2}>{byQuality}</div>{' '}
+                    {/** title '1080p' */}
+                    <div className={style.content}>
+                      {parser(data)[byType][byQuality].map(
+                        ({ host, url }: { host: string; url: string }) => {
+                          return (
+                            <span key={nanoid()} className={style.downloadUrl}>
+                              <a
+                                style={{ color: `#${randomLightColor(host)}` }}
+                                href={url}
+                                tabIndex={1}
+                                target={'_blank'}
+                                rel="noreferrer"
+                                onClick={(e) => {
+                                  const clicked =
+                                    document.createAttribute('style')
+                                  e.currentTarget.attributes.setNamedItem(
+                                    clicked
+                                  )
+                                }}
+                              >
+                                {host}
+                              </a>
+                            </span>
+                          )
+                        }
+                      )}
+                    </div>
                   </div>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
           </div>
         )
       })}
