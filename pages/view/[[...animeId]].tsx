@@ -125,7 +125,7 @@ const Anime = (props: Props) => {
             .then(setData)
             .catch((e) => setData(result))
         } else setData(result)
-      })
+      }).catch(() => setData(null))
     }
   }, [animeId])
   if (data) {
