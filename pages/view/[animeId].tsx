@@ -119,6 +119,7 @@ const AnimeId = () => {
   const { animeId } = query
 
   useEffect(() => {
+    setData(0)
     if (animeId && typeof animeId === 'string' && Number(animeId) && animeId) {
       getdata({ type: 'anime', id: +animeId })
         .then((result) => {

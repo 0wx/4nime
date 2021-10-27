@@ -128,7 +128,7 @@ const Anime = (props: Props) => {
       }).catch(() => setData(null))
     }
   }, [animeId])
-  if (data) {
+  if (data && data.id) {
     const { title, next, prev, player, id, episode } = data
     return (
       <Main>
@@ -154,7 +154,7 @@ const Anime = (props: Props) => {
     )
   }
 
-  if (!data) {
+  if (!data || !data.id) {
     return (
       <Main>
         <Custom404 />

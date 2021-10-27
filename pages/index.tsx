@@ -83,7 +83,8 @@ const Home: NextPage = () => {
                     >
                       <div className={style.infoItem}>
                         <div className={style.title}>
-                          {v.title}{' '}
+                          {v.title.slice(0, 55) +
+                            (v.title.length > 55 ? '...' : '')}{' '}
                           <span
                             style={{
                               backgroundColor: `#${randomLightColor(v.type)}`,
