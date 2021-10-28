@@ -80,10 +80,13 @@
 }
 .downloadBatchButton {
   background-color: $second-text;
-  font-size: 10px;
+  font-size: 13px;
   border: none;
   color: $bg;
   border-radius: 3px;
+  padding: 7px;
+  cursor: pointer;
+  color: $bg;
 }
 @media only screen and (min-width: 1000px) {
   .container {

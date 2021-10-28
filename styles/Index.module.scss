@@ -19,7 +19,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 5px;
 }
 .title {
   color: #eee;
@@ -56,7 +55,6 @@
   min-height: 100px;
   margin-bottom: 20px;
   padding: 20px;
-  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -76,11 +74,24 @@
   background-color: $bg-dim;
   padding: 10px;
 }
-@media only screen and (min-width: 1000px) {
-  .container {
-    padding: 20px 10vw;
-    display: flex;
+.latestItem,
+.batchItem {
+  border-radius: 10px;
+}
+@media only screen and (max-width: 320px) {
+  .type {
+    font-size: 7px;
+    padding: 2px 4px;
+    border-radius: 3px;
   }
+  .title,
+  .headerText,
+  .episode,
+  .time {
+    font-size: 5vw;
+  }
+}
+@media only screen and (min-width: 500px) {
   .latest,
   .batch {
     padding: 20px;
@@ -94,9 +105,9 @@
     flex-wrap: wrap;
   }
   .latestItem {
-    width: 16vw;
-    height: 9vw;
-    margin: 15px 10px;
+    width: 40vw;
+    margin: 15px auto;
+    // margin: 15px 10px;
   }
   .batch {
     display: flex;
@@ -112,5 +123,26 @@
   .batchWrapper {
     height: 80vh;
     overflow: auto;
+  }
+}
+@media only screen and (min-width: 765px) {
+  .latestItem {
+    width: 40vw;
+    height: 22vw;
+    margin: 15px auto;
+    // margin: 15px 10px;
+  }
+}
+@media only screen and (min-width: 1000px) {
+  .container {
+    padding: 20px 10vw;
+    display: flex;
+  }
+
+  .latestItem {
+    width: 45%;
+    height: 30%;
+    margin: 15px auto;
+    // margin: 15px 10px;
   }
 }

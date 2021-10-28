@@ -93,9 +93,7 @@ export const antiWibu = async (data: SanitizedData): Promise<SanitizedData> => {
       }
       const blog = player.url.split('embed.php?url=')[1].split('"')[0]
       const tobeReplaced = `https://wibuu.info/stream/embed.php?url=${blog}`
-      const replacedUrl = `/api/embed/${encodeURIComponent(
-        blog
-      )}`
+      const replacedUrl = `/api/embed/${encodeURIComponent(blog)}`
 
       const response = await same.get<string>(replacedUrl)
       const newUrl = response.data
@@ -120,13 +118,15 @@ const Anime = (props: Props) => {
   const [data, setData] = useState<SanitizedData | null | 0>(0)
   useEffect(() => {
     if (typeof animeId === 'object') {
-      getData(animeId).then((result) => {
-        if (result) {
-          antiWibu(result)
-            .then(setData)
-            .catch((e) => setData(result))
-        } else setData(result)
-      }).catch(() => setData(null))
+      getData(animeId)
+        .then((result) => {
+          if (result) {
+            antiWibu(result)
+              .then(setData)
+              .catch((e) => setData(result))
+          } else setData(result)
+        })
+        .catch(() => setData(null))
     }
   }, [animeId])
   if (data && data.id) {

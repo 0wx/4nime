@@ -84,7 +84,9 @@ export const dl = (data: Batch) => {
       <div ref={tool.addDiv(key)} key={`type${index}`} className={style.byType}>
         <div className={style.titleWrapper}>
           <div className={style.title} onClick={() => tool.toogle(key)()}>
-            {listByType[0][0].videoType}
+            {listByType[0][0].videoType
+              .split(' ')
+              .filter((v) => !data.title.split(' ').some((x) => x === v))}
           </div>
           <span onClick={() => tool.toogle(key)()}>
             <FontAwesomeIcon
@@ -144,7 +146,8 @@ const Batch = () => {
 
   useEffect(() => {
     if (batchId) {
-      same.get<Batch>(`/x/batch/${batchId}`)
+      same
+        .get<Batch>(`/x/batch/${batchId}`)
         .then((res) => res.data)
         .then(setData)
         .catch((_e) => {

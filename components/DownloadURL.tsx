@@ -24,7 +24,8 @@ export const DownloadURL = (props: DownloadButton) => {
   const { episodeId } = props
   const [data, setData] = useState<Batch | 0 | null>(0)
   useEffect(() => {
-    same.get<RawData>('/api/v2/download/' + episodeId)
+    same
+      .get<RawData>('/api/v2/download/' + episodeId)
       .then((v) => v.data)
       .then((v: RawData) => {
         return {

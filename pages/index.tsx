@@ -35,9 +35,7 @@ export interface Latest {
 }
 const getData = async (): Promise<Latest | null> => {
   try {
-    const response: Latest = (
-      await same.get<Latest>('/api/v2/latest')
-    ).data
+    const response: Latest = (await same.get<Latest>('/api/v2/latest')).data
     return response
   } catch (error) {
     return null
@@ -46,8 +44,25 @@ const getData = async (): Promise<Latest | null> => {
 const Home: NextPage = () => {
   const [data, setData] = useState<Latest | null>(null)
   useEffect(() => {
-    getData().then(setData)
+    setData(null)
+    getData()
+      .then(setData)
+      .catch(() => setData(null))
   }, [])
+  if (!data)
+    return (
+      <Main>
+        <Head>
+          <title>Samehadakuu</title>
+          <meta
+            name="description"
+            content="Download Anime Subtitle Indonesia Favoritmu"
+          />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <Loading head={null} height="200px" />
+      </Main>
+    )
   return (
     <Main>
       <Head>
@@ -63,7 +78,6 @@ const Home: NextPage = () => {
         <div className={style.latest}>
           <div className={style.headerText}>Update Terbaru</div>
           <div className={style.latestWrapper}>
-            {!data && <Loading head={null} height="200px" />}
             {data &&
               data.latest.map((v) => {
                 if (!Number(v.url.split('id=')[1]) && !Number(v.data.episode))

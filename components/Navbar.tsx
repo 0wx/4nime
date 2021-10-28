@@ -41,9 +41,7 @@ class SearchTool {
 
     try {
       const response: SearchResult[] = (
-        await same.get<SearchResult[]>(
-          '/api/v2/search/' + query
-        )
+        await same.get<SearchResult[]>('/api/v2/search/' + query)
       ).data
 
       this.update(response, time)

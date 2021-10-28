@@ -18,7 +18,8 @@ export const List = (props: Props) => {
 
   useEffect(() => {
     if (!list)
-      same.get<number[]>('/api/v2/anime/' + animeId)
+      same
+        .get<number[]>('/api/v2/anime/' + animeId)
         .then((data) => data.data)
         .then(setData)
         .catch(() => setData(null))
