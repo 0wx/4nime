@@ -2,6 +2,7 @@ import { useState, useEffect, CSSProperties } from 'react'
 import { Loading } from './Loading'
 import style from '../styles/Stream.module.scss'
 import Link from 'next/link'
+import { same } from './same'
 
 interface Props {
   animeId: number
@@ -17,8 +18,8 @@ export const List = (props: Props) => {
 
   useEffect(() => {
     if (!list)
-      fetch('https://same.yui.pw/api/v2/anime/' + animeId)
-        .then((data) => data.json())
+      same.get<number[]>('/api/v2/anime/' + animeId)
+        .then((data) => data.data)
         .then(setData)
         .catch(() => setData(null))
   }, [animeId, list])

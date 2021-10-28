@@ -8,6 +8,7 @@ import { nanoid } from 'nanoid'
 import Link from 'next/link'
 import { randomLightColor } from 'seed-to-color'
 import { Loading } from '../components/Loading'
+import { same } from '../components/same'
 export interface Data {
   url: string
   episode: string
@@ -34,9 +35,9 @@ export interface Latest {
 }
 const getData = async (): Promise<Latest | null> => {
   try {
-    const response: Latest = await (
-      await fetch('https://same.yui.pw/api/v2/latest')
-    ).json()
+    const response: Latest = (
+      await same.get<Latest>('/api/v2/latest')
+    ).data
     return response
   } catch (error) {
     return null

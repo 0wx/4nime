@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { Batch, dl } from '../pages/batch/[batchId]'
 import { Loading } from './Loading'
 import style from '../styles/Stream.module.scss'
+import { same } from './same'
+
 interface Download {
   host: string
   url: string
@@ -22,8 +24,8 @@ export const DownloadURL = (props: DownloadButton) => {
   const { episodeId } = props
   const [data, setData] = useState<Batch | 0 | null>(0)
   useEffect(() => {
-    fetch('https://same.yui.pw/api/v2/download/' + episodeId)
-      .then((v) => v.json())
+    same.get<RawData>('/api/v2/download/' + episodeId)
+      .then((v) => v.data)
       .then((v: RawData) => {
         return {
           title: v.title,

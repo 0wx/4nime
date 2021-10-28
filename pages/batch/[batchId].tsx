@@ -9,6 +9,7 @@ import Main from '../../components/Main'
 import { nanoid } from 'nanoid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWindowRestore, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { same } from '../../components/same'
 export interface Batch {
   title: string
   thumb: string
@@ -143,8 +144,8 @@ const Batch = () => {
 
   useEffect(() => {
     if (batchId) {
-      fetch(`https://same.yui.pw/x/batch/${batchId}`)
-        .then((res) => res.json())
+      same.get<Batch>(`/x/batch/${batchId}`)
+        .then((res) => res.data)
         .then(setData)
         .catch((_e) => {
           console.log(_e)

@@ -6,6 +6,7 @@ import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { nanoid } from 'nanoid'
 import { randomLightColor } from 'seed-to-color'
 import Link from 'next/link'
+import { same } from './same'
 export interface Data {
   genre: string[]
   type: string
@@ -39,9 +40,11 @@ class SearchTool {
     const query = encodeURIComponent(typeof e === 'string' ? e : e.target.value)
 
     try {
-      const response: SearchResult[] = await (
-        await fetch('https://same.yui.pw/api/v2/search/' + query)
-      ).json()
+      const response: SearchResult[] = (
+        await same.get<SearchResult[]>(
+          '/api/v2/search/' + query
+        )
+      ).data
 
       this.update(response, time)
     } catch (e: any) {

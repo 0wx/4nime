@@ -4,6 +4,7 @@ import { Loading } from '../../components/Loading'
 import Stream from '../../components/Stream'
 import Custom404 from '../404'
 import Main from '../../components/Main'
+import { same } from '../../components/same'
 
 export interface Player {
   title: string
@@ -51,10 +52,10 @@ export const getData = async (
     if (!episodeId) throw new Error('Not a valid episodeId')
     const isArr = typeof episodeId === 'object'
     const url = isArr
-      ? `https://same.yui.pw/api/v2/anime/${episodeId[0]}/${episodeId[1]}`
-      : `https://same.yui.pw/api/v2/episode/${episodeId}`
-    const response = await fetch(url)
-    const data: RawData | null = await response.json()
+      ? `/api/v2/anime/${episodeId[0]}/${episodeId[1]}`
+      : `/api/v2/episode/${episodeId}`
+    const response = await same.get<RawData>(url)
+    const data: RawData = response.data
     if (!data) throw new Error('Data is empty')
     const id: number = isArr ? getId(data.url!)! : +episodeId ? episodeId : 0
     const { title, thumb, next, prev, episode, player, animeId } = data
@@ -92,12 +93,12 @@ export const antiWibu = async (data: SanitizedData): Promise<SanitizedData> => {
       }
       const blog = player.url.split('embed.php?url=')[1].split('"')[0]
       const tobeReplaced = `https://wibuu.info/stream/embed.php?url=${blog}`
-      const replacedUrl = `https://same.yui.pw/api/embed/${encodeURIComponent(
+      const replacedUrl = `/api/embed/${encodeURIComponent(
         blog
       )}`
 
-      const response = await fetch(replacedUrl)
-      const newUrl = await response.text()
+      const response = await same.get<string>(replacedUrl)
+      const newUrl = response.data
       player.url = player.url.replace(
         tobeReplaced,
         newUrl === 'not ok' ? '/404' : newUrl

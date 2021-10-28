@@ -12,6 +12,7 @@ import { List } from '../../components/EpisodeList'
 import Head from 'next/head'
 import { ThreeDots } from 'react-loading-icons'
 import Link from 'next/link'
+import { same } from '../../components/same'
 export type RequestType = 'anime' | 'episode'
 export interface RequestData {
   id: number
@@ -77,11 +78,11 @@ interface Anime {
 const getdata = async (props: RequestData): Promise<Anime | Episode | null> => {
   try {
     const { id, type } = props
-    const response: AnimeInfo | EpisodeInfo = await (
-      await fetch(
-        `https://same.yui.pw/api/v2/${type === 'anime' ? 'info' : type}/${id}`
+    const response: AnimeInfo | EpisodeInfo = (
+      await same.get<AnimeInfo | EpisodeInfo>(
+        `/api/v2/${type === 'anime' ? 'info' : type}/${id}`
       )
-    ).json()
+    ).data
     if (type === 'anime') {
       const result: Anime = {
         type,
@@ -105,8 +106,8 @@ interface BatchResponse {
 }
 const getBatch = async (id: number): Promise<number | null> => {
   try {
-    const response = await fetch('https://same.yui.pw/api/v2/getbatch/' + id)
-    const data: BatchResponse = await response.json()
+    const response = await same.get<BatchResponse>('/api/v2/getbatch/' + id)
+    const data: BatchResponse = response.data
     return data.batch
   } catch (error) {
     return null
