@@ -1,8 +1,15 @@
-import { useState, useEffect, CSSProperties } from 'react'
+import {
+  useState,
+  useEffect,
+  CSSProperties,
+  Dispatch,
+  SetStateAction,
+} from 'react'
 import { Loading } from './Loading'
 import style from '../styles/Stream.module.scss'
 import Link from 'next/link'
 import { same } from './same'
+import { SanitizedData } from '../pages/view/[[...animeId]]'
 
 interface Props {
   animeId: number
