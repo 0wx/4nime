@@ -66,10 +66,12 @@ export const addList = (props: LatestView): LatestView[] => {
   }
 }
 
-export const removeList = (animeId: number | string): LatestView[] => {
+export const remove = (animeId: number | string): LatestView[] => {
   const id = +animeId
   const data = getList()
   if (!data) return []
 
   return update(data.filter((v) => v.animeId !== id))
 }
+
+export const removeAll = () => localStorage.setItem(latestViewVar, '[]')

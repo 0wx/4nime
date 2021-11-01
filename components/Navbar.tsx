@@ -15,41 +15,6 @@ import Link from 'next/link'
 import { same } from './same'
 import { getList, LatestView, timeParser } from './getLatestView'
 
-const ShowLatestView = () => {
-  const [data, setData] = useState<LatestView[] | null>(null)
-  useEffect(() => {
-    if (typeof localStorage !== 'undefined') setData(getList())
-  }, [])
-
-  if (!data || data.length === 0)
-    return (
-      <div className={style.searchResult}>
-        <div className={style.history}>Belum ada History apapun</div>
-      </div>
-    )
-  return (
-    <div className={style.searchResult}>
-      <div className={style.historyTitle}>Baru-baru ini anda tonton:</div>
-      {data.map((v) => {
-        return (
-          <Link
-            key={nanoid()}
-            href="/view/[[...animeId]]"
-            as={`/view/${v.animeId}/${v.episode}`}
-            passHref
-          >
-            <div className={style.history}>
-              {v.title}
-              {v.time && (
-                <div className={style.historyTime}>{timeParser(v.time)}</div>
-              )}
-            </div>
-          </Link>
-        )
-      })}
-    </div>
-  )
-}
 export interface Data {
   genre: string[]
   type: string
@@ -123,7 +88,44 @@ const Navbar = () => {
   const [showHistory, setShowHistory] = useState<boolean>(false)
   const [data, setData] = useState<SearchResult[]>()
   const searchTool = new SearchTool(setData)
+  const ShowLatestView = () => {
+    const [data, setData] = useState<LatestView[] | null>(null)
+    useEffect(() => {
+      if (typeof localStorage !== 'undefined') setData(getList())
+    }, [])
 
+    if (!data || data.length === 0)
+      return (
+        <div className={style.searchResult}>
+          <div className={style.history}>Belum ada History apapun</div>
+        </div>
+      )
+    return (
+      <div className={style.searchResult}>
+        <div className={style.historyTitle}>Baru-baru ini anda tonton:</div>
+        {data.map((v) => {
+          return (
+            <Link
+              key={nanoid()}
+              href="/view/[[...animeId]]"
+              as={`/view/${v.animeId}/${v.episode}`}
+              passHref
+            >
+              <div
+                onClick={() => setShowHistory(false)}
+                className={style.history}
+              >
+                {v.title}
+                {v.time && (
+                  <div className={style.historyTime}>{timeParser(v.time)}</div>
+                )}
+              </div>
+            </Link>
+          )
+        })}
+      </div>
+    )
+  }
   const SearchResult = (props: { data: SearchResult[] }) => {
     return (
       <div className={style.searchResult}>

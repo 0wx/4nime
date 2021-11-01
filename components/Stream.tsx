@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction, useState, useEffect, useRef } from 'react'
-import { Player, SanitizedData } from '../pages/view/[[...animeId]]'
+import { useState, useEffect } from 'react'
+import { Player } from '../pages/view/[[...animeId]]'
 import style from '../styles/Stream.module.scss'
 import Link from 'next/link'
 import Head from 'next/head'
@@ -8,7 +8,6 @@ import { DownloadURL, getDownloadURL } from './DownloadURL'
 import { List } from './EpisodeList'
 import { Batch } from '../pages/batch/[batchId]'
 import { Download } from './downloadUrlMaker'
-import { getBatch } from '../pages/view/[animeId]'
 import { DownloadURLBatch } from './DownloadURLBatch'
 import { addList } from './getLatestView'
 interface Props {
@@ -44,7 +43,6 @@ export default function Stream(props: Props) {
   const [streamPlayer, setStreamPlayer] = useState<Player[]>(player)
   const [epsFinder, searchEpisode] = useState<number>(0)
   const isAnimeIdExist = typeof animeId === 'object'
-  // eslint-disable-next-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (isAnimeIdExist)
@@ -125,7 +123,7 @@ export default function Stream(props: Props) {
     : () => (
         <Link href="/view/[episodeId]" as={`/view/${prev}`} passHref>
           <button style={{ visibility: prev ? 'visible' : 'hidden' }}>
-            Episode Sebelumnya
+            Episode Selanjutnya
           </button>
         </Link>
       )
