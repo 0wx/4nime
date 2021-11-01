@@ -96,7 +96,7 @@ export default function Stream(props: Props) {
           passHref
         >
           <button style={{ visibility: next ? 'visible' : 'hidden' }}>
-            Episode Sebelumnya
+            Episode Selanjutnya
           </button>
         </Link>
       )
@@ -123,7 +123,7 @@ export default function Stream(props: Props) {
     : () => (
         <Link href="/view/[episodeId]" as={`/view/${prev}`} passHref>
           <button style={{ visibility: prev ? 'visible' : 'hidden' }}>
-            Episode Selanjutnya
+            Episode Sebelumnya
           </button>
         </Link>
       )
