@@ -35,7 +35,13 @@ export const getDownloadURL = async (
 }
 export const DownloadURL = (props: DownloadButton) => {
   const { episodeId, download } = props
-  const [data, setData] = useState<Batch | 0 | null>(download || 0)
+  const [data, setData] = useState<Batch | 0 | null>(
+    !download && typeof download === 'object'
+      ? null
+      : typeof download === 'undefined'
+      ? 0
+      : download
+  )
   useEffect(() => {
     if (episodeId)
       getDownloadURL(episodeId)
@@ -45,7 +51,7 @@ export const DownloadURL = (props: DownloadButton) => {
   if (data === 0)
     return (
       <div className={style.showLoading}>
-        <Loading height="200px" />
+        <Loading head={0} height="200px" />
       </div>
     )
   if (!data)

@@ -2,7 +2,7 @@ import { TailSpin } from 'react-loading-icons'
 import Head from 'next/head'
 interface Props {
   height?: string
-  head?: string | null
+  head?: string | null | number
 }
 export const Loading = (props: Props) => (
   <div

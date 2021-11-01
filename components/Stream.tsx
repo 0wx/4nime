@@ -87,43 +87,45 @@ export default function Stream(props: Props) {
     }
     getDownloadURL(episodeId).then(onDownloadResponse)
   }, [episodeId])
-  const Next =
-    isAnimeIdExist && next
-      ? () => (
-          <Link
-            href="/view/[[...animeId]]"
-            as={`/view/${animeId[0]}/${next}`}
-            passHref
-          >
-            <button>Episode Selanjutnya</button>
-          </Link>
-        )
-      : next
-      ? () => (
-          <Link href="/view/[episodeId]" as={`/view/${next}`} passHref>
-            <button>Episode Selanjutnya</button>
-          </Link>
-        )
-      : null
+  const Next = isAnimeIdExist
+    ? () => (
+        <Link
+          href="/view/[[...animeId]]"
+          as={`/view/${animeId[0]}/${next}`}
+          passHref
+        >
+          <button style={{ visibility: next ? 'visible' : 'hidden' }}>
+            Episode Sebelumnya
+          </button>
+        </Link>
+      )
+    : () => (
+        <Link href="/view/[episodeId]" as={`/view/${next}`} passHref>
+          <button style={{ visibility: next ? 'visible' : 'hidden' }}>
+            Episode Sebelumnya
+          </button>
+        </Link>
+      )
 
-  const Prev =
-    isAnimeIdExist && prev
-      ? () => (
-          <Link
-            href="/view/[[...animeId]]"
-            as={`/view/${animeId[0]}/${prev}`}
-            passHref
-          >
-            <button>Episode Sebelumnya</button>
-          </Link>
-        )
-      : prev
-      ? () => (
-          <Link href="/view/[episodeId]" as={`/view/${prev}`} passHref>
-            <button>Episode Sebelumnya</button>
-          </Link>
-        )
-      : null
+  const Prev = isAnimeIdExist
+    ? () => (
+        <Link
+          href="/view/[[...animeId]]"
+          as={`/view/${animeId[0]}/${prev}`}
+          passHref
+        >
+          <button style={{ visibility: prev ? 'visible' : 'hidden' }}>
+            Episode Sebelumnya
+          </button>
+        </Link>
+      )
+    : () => (
+        <Link href="/view/[episodeId]" as={`/view/${prev}`} passHref>
+          <button style={{ visibility: prev ? 'visible' : 'hidden' }}>
+            Episode Sebelumnya
+          </button>
+        </Link>
+      )
   return (
     <div className={style.mainContainer}>
       <Head>
@@ -180,7 +182,8 @@ export default function Stream(props: Props) {
               <button onClick={() => setShow((v) => !v)}>
                 {!show ? 'Lihat Link Download' : 'Tutup Link Download'}
               </button>
-              {show && <DownloadURL download={download} />}
+              {show && download && <DownloadURL download={download} />}
+              {show && !download && <DownloadURL episodeId={episodeId} />}
               <button
                 onClick={() =>
                   setShowEpisodes((v) => {

@@ -45,7 +45,7 @@ export const DownloadURLBatch = (props: DownloadButton) => {
   if (data === 0)
     return (
       <div className={style.showLoading}>
-        <Loading head={null} height="20px" />
+        <Loading head={0} height="20px" />
       </div>
     )
   if (!data) return <p style={{ textAlign: 'center' }}>Belum ada Batch</p>
