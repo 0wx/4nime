@@ -11,7 +11,8 @@ interface Download {
   quality: string
 }
 interface DownloadButton {
-  episodeId: number
+  episodeId?: number
+  download?: Batch | null
 }
 
 interface RawData {
@@ -20,20 +21,22 @@ interface RawData {
   anime: string
   download: Download[]
 }
+
+export const getDownloadURL = async(episodeId: number): Promise <Batch | null> => {
+  try {
+    const response = (await same
+      .get<RawData>('/api/v2/download/' + episodeId)).data
+    return {...response, thumb: '/logo-min.webp'}
+      
+  } catch (error) {
+    return null
+  }
+}
 export const DownloadURL = (props: DownloadButton) => {
-  const { episodeId } = props
-  const [data, setData] = useState<Batch | 0 | null>(0)
+  const { episodeId, download } = props
+  const [data, setData] = useState<Batch | 0 | null>(download || 0)
   useEffect(() => {
-    same
-      .get<RawData>('/api/v2/download/' + episodeId)
-      .then((v) => v.data)
-      .then((v: RawData) => {
-        return {
-          title: v.title,
-          thumb: '',
-          download: v.download,
-        }
-      })
+    if(episodeId) getDownloadURL(episodeId)
       .then(setData)
       .catch((e) => setData(null))
   }, [episodeId])

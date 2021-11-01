@@ -117,6 +117,7 @@ const Anime = (props: Props) => {
   const animeId = props.animeId || router.query.animeId
   const [data, setData] = useState<SanitizedData | null | 0>(0)
   useEffect(() => {
+    setData(0)
     if (typeof animeId === 'object') {
       getData(animeId)
         .then((result) => {
@@ -138,7 +139,6 @@ const Anime = (props: Props) => {
           title={title}
           next={next}
           prev={prev}
-          setData={setData}
           animeId={animeId}
           episodeId={id}
           current={+episode}

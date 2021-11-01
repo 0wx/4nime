@@ -140,7 +140,24 @@
   background-color: $second-text;
   color: $bg;
 }
+.selected {
+  background-color: $second-text;
+  color: $bg
+}
 
+.nonselected {
+  background-color: $bg-dim;
+  color: $main-text;
+}
+
+.selector {
+  width: 70%;
+  text-align: left;
+  padding: 7px;
+  background-color: $bg-light;
+  color: $main-text;
+  border-radius: 3px;
+}
 @media only screen and (min-width: 1000px) {
   .stream {
     height: 93vh;
