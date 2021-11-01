@@ -18,7 +18,16 @@ const Main = (props: any) => {
         <Head>{props.title && <title>{props.title}</title>}</Head>
       )}
       <Navbar />
-      <div style={{ display: 'flex' }}>{props.children}</div>
+      <div
+        style={{
+          display: 'flex',
+          marginTop: '50px',
+          flexGrow: 1,
+          height: 'calc(100% - 50px)',
+        }}
+      >
+        {props.children}
+      </div>
     </div>
   )
 }

@@ -104,7 +104,7 @@ const getdata = async (props: RequestData): Promise<Anime | Episode | null> => {
 interface BatchResponse {
   batch: number | null
 }
-const getBatch = async (id: number): Promise<number | null> => {
+export const getBatch = async (id: number): Promise<number | null> => {
   try {
     const response = await same.get<BatchResponse>('/api/v2/getbatch/' + id)
     const data: BatchResponse = response.data

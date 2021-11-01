@@ -3,6 +3,7 @@ import { Batch, dl } from '../pages/batch/[batchId]'
 import { Loading } from './Loading'
 import style from '../styles/Stream.module.scss'
 import { same } from './same'
+import { getBatch } from '../pages/view/[animeId]'
 
 interface Download {
   host: string
@@ -11,7 +12,7 @@ interface Download {
   quality: string
 }
 interface DownloadButton {
-  episodeId?: number
+  animeId: number | null
   download?: Batch | null
 }
 
@@ -21,34 +22,32 @@ interface RawData {
   anime: string
   download: Download[]
 }
-
-export const getDownloadURL = async (
-  episodeId: number
-): Promise<Batch | null> => {
-  try {
-    const response = (await same.get<RawData>('/api/v2/download/' + episodeId))
-      .data
-    return { ...response, thumb: '/logo-min.webp' }
-  } catch (error) {
-    return null
-  }
+interface BatchId {
+  batch: number | null
 }
-export const DownloadURL = (props: DownloadButton) => {
-  const { episodeId, download } = props
+
+export const DownloadURLBatch = (props: DownloadButton) => {
+  const { animeId, download } = props
   const [data, setData] = useState<Batch | 0 | null>(download || 0)
   useEffect(() => {
-    if (episodeId)
-      getDownloadURL(episodeId)
-        .then(setData)
+    if (animeId)
+      getBatch(animeId)
+        .then((batchId) => {
+          if (!batchId) throw new Error()
+          same
+            .get<Batch>(`/x/batch/${batchId}`)
+            .then((res) => res.data)
+            .then(setData)
+            .catch((e) => setData(null))
+        })
         .catch((e) => setData(null))
-  }, [episodeId])
+  }, [animeId])
   if (data === 0)
     return (
       <div className={style.showLoading}>
-        <Loading height="200px" />
+        <Loading head={null} height="20px" />
       </div>
     )
-  if (!data)
-    return <p style={{ textAlign: 'center' }}>Belum ada link dunludnya ._.</p>
+  if (!data) return <p style={{ textAlign: 'center' }}>Belum ada Batch</p>
   return <div className={style.show}>{dl(data)}</div>
 }

@@ -4,10 +4,12 @@
   width: 100vw;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
 }
 .stream {
   width: 100%;
-  height: 45vh;
+  height: calc(9 / 16 * 100vw);
+  top: 50px;
 }
 
 .title {
@@ -66,14 +68,20 @@
 .button {
   padding: 0;
   max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 .nav {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   align-items: center;
-  max-width: 90vw;
+  overflow: auto;
+  max-width: 100vw;
   justify-content: space-between;
-  height: 40vh;
+  padding: 10px;
+  height: calc(100vh - 57vw - 50px);
 }
 
 .hidden {
@@ -83,11 +91,20 @@
   display: flex;
   width: 100%;
   justify-content: center;
+  flex-grow: 1;
+  max-height: 100%;
+  align-items: flex-start;
 }
 .downloadURL {
   padding: 4px;
   color: $main-text;
-  max-width: 100%;
+  width: 85vw;
+  height: 100%;
+  overflow: auto;
+  margin: auto;
+  flex-grow: 1;
+  max-height: max-content;
+
   button {
     width: 100%;
     border-radius: 20px;
@@ -102,7 +119,7 @@
 
 .show {
   width: 100%;
-  max-width: 80vw;
+  max-width: 85vw;
 }
 
 .showLoading {
@@ -110,7 +127,7 @@
 }
 
 .episodes {
-  max-height: 500px;
+  max-height: 47vh;
   overflow: auto;
 }
 
@@ -142,7 +159,7 @@
 }
 .selected {
   background-color: $second-text;
-  color: $bg
+  color: $bg;
 }
 
 .nonselected {
@@ -158,18 +175,30 @@
   color: $main-text;
   border-radius: 3px;
 }
+
+.searchEpisode {
+  display: flex;
+  width: 100%;
+  padding: 5px 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
 @media only screen and (min-width: 1000px) {
+  .navWrapper {
+    justify-content: flex-end;
+  }
   .stream {
     height: 93vh;
     width: 80vw;
     padding: 15px 0 0 15px;
   }
   .nav {
-    min-height: 90vh;
+    min-height: 93vh;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     width: 18vw;
+    margin: 0 1vw;
   }
   .mainContainer {
     flex-direction: row;
@@ -178,5 +207,8 @@
     font-size: 20px;
     font-weight: bold;
     letter-spacing: 0.5px;
+  }
+  .downloadURL {
+    width: 100%;
   }
 }

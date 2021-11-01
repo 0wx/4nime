@@ -1,9 +1,4 @@
-import {
-  Dispatch,
-  SetStateAction,
-  useState,
-  useEffect,
-} from 'react'
+import { Dispatch, SetStateAction, useState, useEffect, useRef } from 'react'
 import { Player, SanitizedData } from '../pages/view/[[...animeId]]'
 import style from '../styles/Stream.module.scss'
 import Link from 'next/link'
@@ -13,6 +8,8 @@ import { DownloadURL, getDownloadURL } from './DownloadURL'
 import { List } from './EpisodeList'
 import { Batch } from '../pages/batch/[batchId]'
 import { Download } from './downloadUrlMaker'
+import { getBatch } from '../pages/view/[animeId]'
+import { DownloadURLBatch } from './DownloadURLBatch'
 interface Props {
   animeId?: string | string[]
   episodeId: number
@@ -39,15 +36,17 @@ const isAceFile = (v: Download) => acefile.test(v.url)
 export default function Stream(props: Props) {
   const [show, setShow] = useState<boolean>(false)
   const [showEpisodes, setShowEpisodes] = useState<boolean>(false)
+  const [showBatch, setShowBatch] = useState<boolean>(false)
   const [download, setDownload] = useState<Batch | null>(null)
   const [server, selectServer] = useState(0)
   const { player, next, prev, title, animeId, episodeId } = props
   const [streamPlayer, setStreamPlayer] = useState<Player[]>(player)
-  
+  const [epsFinder, searchEpisode] = useState<number>(0)
   const isAnimeIdExist = typeof animeId === 'object'
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  
+
   useEffect(() => {
+    // Getting Batch
     const tits = new Get()
     const onDownloadResponse = (dl: Batch | null) => {
       setDownload(dl)
@@ -115,13 +114,13 @@ export default function Stream(props: Props) {
             as={`/view/${animeId[0]}/${prev}`}
             passHref
           >
-            <button >Episode Sebelumnya</button>
+            <button>Episode Sebelumnya</button>
           </Link>
         )
       : prev
       ? () => (
           <Link href="/view/[episodeId]" as={`/view/${prev}`} passHref>
-            <button >Episode Sebelumnya</button>
+            <button>Episode Sebelumnya</button>
           </Link>
         )
       : null
@@ -142,7 +141,7 @@ export default function Stream(props: Props) {
           <div className={style.button}>
             <div className={style.server}>
               <select
-              className={style.selector}
+                className={style.selector}
                 onChange={(e) => {
                   e.preventDefault()
                   selectServer(Number(e.target.value))
@@ -150,13 +149,14 @@ export default function Stream(props: Props) {
               >
                 {streamPlayer &&
                   streamPlayer.map((value, index) => {
-                    
                     return (
                       <option
-                        className={server === index ? style.selected : style.nonselected}
+                        className={
+                          server === index ? style.selected : style.nonselected
+                        }
                         key={index}
                         value={index}
-                        selected={server === index}
+                        defaultValue={server === index ? index : index + 1}
                       >
                         {value.title}
                       </option>
@@ -169,15 +169,46 @@ export default function Stream(props: Props) {
               {Next && <Next />}
             </div>
             <div className={style.downloadURL}>
+              <button onClick={() => setShowBatch((v) => !v)}>
+                {!showBatch ? 'Lihat Batch' : 'Tutup Batch'}
+              </button>
+              {showBatch && (
+                <DownloadURLBatch
+                  animeId={isAnimeIdExist ? +animeId[0] : null}
+                />
+              )}
               <button onClick={() => setShow((v) => !v)}>
                 {!show ? 'Lihat Link Download' : 'Tutup Link Download'}
               </button>
               {show && <DownloadURL download={download} />}
-              <button onClick={() => setShowEpisodes((v) => !v)}>
+              <button
+                onClick={() =>
+                  setShowEpisodes((v) => {
+                    if (v) searchEpisode(0)
+                    return !v
+                  })
+                }
+              >
                 {!showEpisodes ? 'Lihat Semua Episode' : 'Tutup Semua Episode'}
               </button>
+              {showEpisodes ? (
+                <input
+                  className={style.searchEpisode}
+                  type="number"
+                  placeholder="Masukan episode yang kamu cari..."
+                  onChange={(e) => {
+                    searchEpisode(+e.currentTarget.value)
+                  }}
+                />
+              ) : (
+                ''
+              )}
               {isAnimeIdExist && showEpisodes && (
-                <List current={props.current} animeId={+animeId[0]} />
+                <List
+                  current={props.current}
+                  find={epsFinder}
+                  animeId={+animeId[0]}
+                />
               )}
             </div>
           </div>

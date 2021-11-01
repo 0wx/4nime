@@ -129,11 +129,7 @@ export const dl = (data: Batch) => {
                             {v.host}
                           </a>
                         ) : (
-                          <span
-                            className={style.strike}
-                          >
-                            {v.host}
-                          </span>
+                          <span className={style.strike}>{v.host}</span>
                         )}
                       </span>
                     )
