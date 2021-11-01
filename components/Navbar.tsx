@@ -1,12 +1,55 @@
 /* eslint-disable @next/next/no-img-element */
 import style from '../styles/Home.module.scss'
-import { useState, ChangeEvent, Dispatch, SetStateAction } from 'react'
+import {
+  useState,
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faTimes, faHistory } from '@fortawesome/free-solid-svg-icons'
 import { nanoid } from 'nanoid'
 import { randomLightColor } from 'seed-to-color'
 import Link from 'next/link'
 import { same } from './same'
+import { getList, LatestView, timeParser } from './getLatestView'
+
+const ShowLatestView = () => {
+  const [data, setData] = useState<LatestView[] | null>(null)
+  useEffect(() => {
+    if (typeof localStorage !== 'undefined') setData(getList())
+  }, [])
+
+  if (!data || data.length === 0)
+    return (
+      <div className={style.searchResult}>
+        <div className={style.history}>Belum ada History apapun</div>
+      </div>
+    )
+  return (
+    <div className={style.searchResult}>
+      <div className={style.historyTitle}>Baru-baru ini anda tonton:</div>
+      {data.map((v) => {
+        return (
+          <Link
+            key={nanoid()}
+            href="/view/[[...animeId]]"
+            as={`/view/${v.animeId}/${v.episode}`}
+            passHref
+          >
+            <div className={style.history}>
+              {v.title}
+              {v.time && (
+                <div className={style.historyTime}>{timeParser(v.time)}</div>
+              )}
+            </div>
+          </Link>
+        )
+      })}
+    </div>
+  )
+}
 export interface Data {
   genre: string[]
   type: string
@@ -50,6 +93,14 @@ class SearchTool {
     }
   }
 }
+export const HistoryIcon = () => (
+  <FontAwesomeIcon
+    style={{ cursor: 'pointer' }}
+    icon={faHistory}
+    size={'1x'}
+    color="#eee"
+  />
+)
 export const SerachIcon = () => (
   <FontAwesomeIcon
     style={{ cursor: 'pointer' }}
@@ -69,6 +120,7 @@ export const CloseIcon = () => (
 
 const Navbar = () => {
   const [show, setShow] = useState<boolean>(false)
+  const [showHistory, setShowHistory] = useState<boolean>(false)
   const [data, setData] = useState<SearchResult[]>()
   const searchTool = new SearchTool(setData)
 
@@ -162,10 +214,18 @@ const Navbar = () => {
             >
               {show ? <CloseIcon /> : <SerachIcon />}
             </button>
+            <button
+              onClick={() => {
+                setShowHistory((v) => !v)
+              }}
+            >
+              <HistoryIcon />
+            </button>
           </div>
         </div>
       </div>
       <div className={style.searchContainer}>
+        {showHistory && <ShowLatestView />}
         {data && <SearchResult data={data} />}
       </div>
     </div>

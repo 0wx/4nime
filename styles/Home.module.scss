@@ -109,6 +109,7 @@
   width: 100vw;
   max-width: 700px;
   top: 50px;
+  border-radius: 0 0 5px 5px;
 }
 .searchContainer {
   display: flex;
@@ -143,6 +144,24 @@
   border-radius: 5px;
   margin-left: 7px;
   padding-top: 3px;
+}
+
+.history {
+  background-color: $bg-dim;
+  color: $main-text-dim;
+  padding: 10px;
+  border-bottom: .5px solid $bg-light;
+  cursor: pointer;
+  div {
+    color: $bg-light;
+  }
+}
+.historyTitle {
+  background-color: $bg;
+  color: $main-text-dim;
+  padding: 5px 10px;
+  border-bottom: 1px solid $bg-light;
+  font-weight: bold;
 }
 @media (max-width: 600px) {
   .grid {

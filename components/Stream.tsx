@@ -10,6 +10,7 @@ import { Batch } from '../pages/batch/[batchId]'
 import { Download } from './downloadUrlMaker'
 import { getBatch } from '../pages/view/[animeId]'
 import { DownloadURLBatch } from './DownloadURLBatch'
+import { addList } from './getLatestView'
 interface Props {
   animeId?: string | string[]
   episodeId: number
@@ -46,6 +47,8 @@ export default function Stream(props: Props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
 
   useEffect(() => {
+    if (isAnimeIdExist)
+      addList({ title, animeId: +animeId[0], episode: +animeId[1] })
     // Getting Batch
     const tits = new Get()
     const onDownloadResponse = (dl: Batch | null) => {
@@ -86,7 +89,7 @@ export default function Stream(props: Props) {
       }
     }
     getDownloadURL(episodeId).then(onDownloadResponse)
-  }, [episodeId])
+  }, [animeId, episodeId, isAnimeIdExist, title])
   const Next = isAnimeIdExist
     ? () => (
         <Link
