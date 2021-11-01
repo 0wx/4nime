@@ -8,12 +8,23 @@ import {
   useEffect,
 } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faTimes, faHistory } from '@fortawesome/free-solid-svg-icons'
+import {
+  faSearch,
+  faTimes,
+  faHistory,
+  faTrashAlt,
+} from '@fortawesome/free-solid-svg-icons'
 import { nanoid } from 'nanoid'
 import { randomLightColor } from 'seed-to-color'
 import Link from 'next/link'
 import { same } from './same'
-import { getList, LatestView, timeParser } from './getLatestView'
+import {
+  getList,
+  LatestView,
+  remove,
+  removeAll,
+  timeParser,
+} from './getLatestView'
 
 export interface Data {
   genre: string[]
@@ -58,6 +69,14 @@ class SearchTool {
     }
   }
 }
+export const TrashIcon = () => (
+  <FontAwesomeIcon
+    style={{ cursor: 'pointer' }}
+    icon={faTrashAlt}
+    size={'1x'}
+    color="#eee"
+  />
+)
 export const HistoryIcon = () => (
   <FontAwesomeIcon
     style={{ cursor: 'pointer' }}
@@ -102,7 +121,20 @@ const Navbar = () => {
       )
     return (
       <div className={style.searchResult}>
-        <div className={style.historyTitle}>Baru-baru ini anda tonton:</div>
+        <div className={style.historyTitle}>
+          <div>Baru-baru ini anda tonton:</div>
+          <div
+            onClick={() => {
+              if (confirm('Hapus semua history?')) {
+                removeAll()
+                setData([])
+              }
+            }}
+            className={style.trash}
+          >
+            <TrashIcon />
+          </div>
+        </div>
         {data.map((v) => {
           return (
             <Link

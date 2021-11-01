@@ -157,6 +157,8 @@
   }
 }
 .historyTitle {
+  display: flex;
+  justify-content: space-between;
   background-color: $bg;
   color: $main-text-dim;
   padding: 5px 10px;
