@@ -114,19 +114,27 @@ export const dl = (data: Batch) => {
                   {listByQuality.map((v, index) => {
                     return (
                       <span key={'url' + index} className={style.downloadUrl}>
-                        <a
-                          style={{ color: getRandomColor(v.host) }}
-                          href={v.url}
-                          tabIndex={1}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={(e) => {
-                            const clicked = document.createAttribute('style')
-                            e.currentTarget.attributes.setNamedItem(clicked)
-                          }}
-                        >
-                          {v.host}
-                        </a>
+                        {!!v.url ? (
+                          <a
+                            style={{ color: getRandomColor(v.host) }}
+                            href={v.url}
+                            tabIndex={1}
+                            target="_blank"
+                            rel="noreferrer"
+                            onClick={(e) => {
+                              const clicked = document.createAttribute('style')
+                              e.currentTarget.attributes.setNamedItem(clicked)
+                            }}
+                          >
+                            {v.host}
+                          </a>
+                        ) : (
+                          <span
+                            className={style.strike}
+                          >
+                            {v.host}
+                          </span>
+                        )}
                       </span>
                     )
                   })}
