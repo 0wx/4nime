@@ -1,2 +1,2 @@
 import axios from 'axios'
-export const same = axios.create({ baseURL: 'https://same.yui.pw' })
+export const same = axios.create({ baseURL: process.env.API_URL! })
