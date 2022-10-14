@@ -66,10 +66,10 @@ const Home: NextPage = () => {
   return (
     <Main>
       <Head>
-        <title>Samehadakuu</title>
+        <title>4nime</title>
         <meta
           name="description"
-          content="Download Anime Subtitle Indonesia Favoritmu"
+          content="Download dan Stream Anime Subtitle Indonesia Favoritmu"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
